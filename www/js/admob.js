@@ -9,7 +9,7 @@
     if (/(android)/i.test(navigator.userAgent)) {
         admobid = { // for Android
             banner: 'ca-app-pub-1683858134373419/7790106682',
-            interstitial:'ca-app-pub-9249695405712287/7485127953'
+            interstitial:'ca-app-pub-9249695405712287/3416685158'
             //banner: 'ca-app-pub-3886850395157773/3411786244'
             //interstitial: 'ca-app-pub-9249695405712287/3301233156'
         };
@@ -49,7 +49,7 @@
     }
 
     function loadInterstitial() {
-        AdMob.prepareInterstitial({ adId: admobid.interstitial, isTesting: true, autoShow: true });
+        AdMob.prepareInterstitial({ adId: admobid.interstitial, isTesting: false, autoShow: true });
     }
 
    function checkFirstUse()
@@ -86,7 +86,7 @@ TransitMaster.StopTimes = function (options) {
 
     function initialize() {
         $("#MainMobileContent_routeList").bind("change", function () {
-            var temp = $("#MainContent_routeList").val();
+            var temp = $("#MainMobileContent_routeList").val();
 
             if (temp != "") {
                 $.cookie("route", temp, { expires: 30 });
@@ -95,7 +95,7 @@ TransitMaster.StopTimes = function (options) {
         });
 
         $("#MainMobileContent_directionList").bind("change", function () {
-            var temp = $("#MainContent_directionList").val();
+            var temp = $("#MainMobileContent_directionList").val();
 
             if (temp != "") {
                 $.cookie("direction", temp, { expires: 30 });
