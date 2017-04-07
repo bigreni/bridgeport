@@ -6,7 +6,7 @@ versionCode = "1"
 xmlns="http://www.w3.org/ns/widgets"
 xmlns:gap="http://phonegap.com/ns/1.0"
 >
-    <name>RTA Bus Tracker</name>
+    <name>GBT Bus Tracker</name>
     <description>
         Bus App.
     </description>
