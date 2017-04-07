@@ -86,7 +86,7 @@ TransitMaster.StopTimes = function (options) {
 
     function initialize() {
         $("#MainMobileContent_routeList").bind("change", function () {
-            var temp = $("#MainMobileContent_routeList").val();
+            var temp = $("#MainContent_routeList").val();
 
             if (temp != "") {
                 $.cookie("route", temp, { expires: 30 });
@@ -95,7 +95,7 @@ TransitMaster.StopTimes = function (options) {
         });
 
         $("#MainMobileContent_directionList").bind("change", function () {
-            var temp = $("#MainMobileContent_directionList").val();
+            var temp = $("#MainContent_directionList").val();
 
             if (temp != "") {
                 $.cookie("direction", temp, { expires: 30 });
