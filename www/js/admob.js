@@ -54,8 +54,8 @@
 
    function checkFirstUse()
     {
-		TransitMaster.StopTimes({arrivals: true, headingLabel: "Arrival"});        //askRating();
-        //initApp();
+		TransitMaster.StopTimes({arrivals: true, headingLabel: "Arrival"});        askRating();
+        initApp();
     }
 
 function askRating()
@@ -66,7 +66,7 @@ function askRating()
   usesUntilPrompt: 10,
   promptAgainForEachNewVersion: true,
   storeAppURL: {
-                android: 'market://details?id=com.bridgeport.free'
+                android: 'market://details?id=com.cleveland.withads'
                }
 };
  
@@ -141,7 +141,7 @@ TransitMaster.StopTimes = function (options) {
 
         $.ajax({
             type: "POST",
-            url: "http://32.219.163.149/tmwebwatch/Arrivals.aspx/getRoutes",
+            url: "http://www.nextconnect.riderta.com/Arrivals.aspx/getRoutes",
             contentType: "application/json;	charset=utf-8",
             dataType: "json",
             success: function (msg) {
@@ -193,7 +193,7 @@ TransitMaster.StopTimes = function (options) {
 
         $.ajax({
             type: "POST",
-            url: "http://32.219.163.149/tmwebwatch/Arrivals.aspx/getDirections",
+            url: "http://www.nextconnect.riderta.com/Arrivals.aspx/getDirections",
             data: "{routeID: " + $("#MainMobileContent_routeList").val() + "}",
             contentType: "application/json;	charset=utf-8",
             dataType: "json",
@@ -237,7 +237,7 @@ TransitMaster.StopTimes = function (options) {
 
         $.ajax({
             type: "POST",
-            url: "http://32.219.163.149/tmwebwatch/Arrivals.aspx/getStops",
+            url: "http://www.nextconnect.riderta.com/Arrivals.aspx/getStops",
             data: "{routeID: " + $("#MainMobileContent_routeList").val() + ",	directionID: " + $("#MainMobileContent_directionList").val() + "}",
             contentType: "application/json;	charset=utf-8",
             dataType: "json",
@@ -277,7 +277,7 @@ TransitMaster.StopTimes = function (options) {
 
 		$.ajax({
 			type: "POST",
-			url: "http://32.219.163.149/tmwebwatch/Arrivals.aspx/getStopTimes",
+			url: "http://www.nextconnect.riderta.com/Arrivals.aspx/getStopTimes",
 			data: "{routeID: " + $("#MainMobileContent_routeList").val() + ",	directionID: " + $("#MainMobileContent_directionList").val() + ",	stopID:	" + $("#MainMobileContent_stopList").val() + ", useArrivalTimes:	" + settings.arrivals + "}",
 			contentType: "application/json;	charset=utf-8",
 			dataType: "json",
