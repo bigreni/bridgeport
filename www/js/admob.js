@@ -66,7 +66,7 @@ function askRating()
   usesUntilPrompt: 10,
   promptAgainForEachNewVersion: true,
   storeAppURL: {
-                android: 'market://details?id=com.cleveland.withads'
+                android: 'market://details?id=com.bridgeport.free'
                }
 };
  
