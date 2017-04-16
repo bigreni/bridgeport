@@ -13,7 +13,12 @@
             //banner: 'ca-app-pub-3886850395157773/3411786244'
             //interstitial: 'ca-app-pub-9249695405712287/3301233156'
         };
-    }
+    } else if(/(ipod|iphone|ipad)/i.test(navigator.userAgent)) { // for ios
+    admobid = {
+      banner: 'ca-app-pub-1683858134373419/7790106682', // or DFP format "/6253334/dfp_example_ad"
+      interstitial: 'ca-app-pub-9249695405712287/5792154750'
+    };
+  }
 
     function initApp() {
         if (!AdMob) { alert('admob plugin not ready'); return; }
@@ -168,6 +173,7 @@ TransitMaster.StopTimes = function (options) {
             }
         });
         $("span").remove();
+        $(".dropList").select2();
     }
 
     function getDirections() {
@@ -222,6 +228,7 @@ TransitMaster.StopTimes = function (options) {
             }
         });
         $("span").remove();
+        $(".dropList").select2();
     }
 
     function getStops() {
@@ -266,6 +273,7 @@ TransitMaster.StopTimes = function (options) {
             }
         });
         $("span").remove();
+        $(".dropList").select2();
     }
 
 	function getArrivalTimes(refresh) {
@@ -319,6 +327,7 @@ TransitMaster.StopTimes = function (options) {
 			}
 		});
         $("span").remove();
+        $(".dropList").select2();
 	}
 
     function displayError(error) {
