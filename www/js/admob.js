@@ -71,6 +71,7 @@ function askRating()
   usesUntilPrompt: 10,
   promptAgainForEachNewVersion: true,
   storeAppURL: {
+                ios: '1227308869',
                 android: 'market://details?id=com.bridgeport.free'
                }
 };
