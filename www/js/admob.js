@@ -20,6 +20,36 @@
     };
   }
 
+  // select the right Ad Id according to platform
+	var adunits = {};
+	if( /(android)/i.test(navigator.userAgent) ) { 
+		adunits = { // for Android
+            appId: '592f183df6cd4543b261045d',
+            appKey: '14a772ed12eb5396cbd0e1986102b0f30508d1af'
+		};
+	} else if(/(ipod|iphone|ipad)/i.test(navigator.userAgent)) {
+		adunits = { // for iOS
+            appId: '543f9ac9c26ee436e7133794',
+            appKey: '6d1c2e4a5d1225825a7472aa52d0f45e4757de39'
+		};
+	} else {
+        alert('windows phone not supported');
+	}
+
+    function initChartboost() {
+		if (! Chartboost ) { alert( 'Chartboost plugin not ready' ); return; }
+
+        Chartboost.setOptions( {
+                 appId: adunits.appId,
+                 appKey: adunits.appKey
+        } );
+
+        registerAdEvents();
+        if(Chartboost) Chartboost.prepareInterstitial( {
+	adId: 'interstitial/Home Screen', 
+	autoShow: true } );
+    }
+
     function initApp() {
         if (!AdMob) { alert('admob plugin not ready'); return; }
         initAd();
@@ -59,8 +89,10 @@
 
    function checkFirstUse()
     {
-		TransitMaster.StopTimes({arrivals: true, headingLabel: "Arrival"});        askRating();
-        initApp();
+		TransitMaster.StopTimes({arrivals: true, headingLabel: "Arrival"});
+		initChartboost();
+        //initApp();
+        //askRating();
     }
 
 function askRating()
