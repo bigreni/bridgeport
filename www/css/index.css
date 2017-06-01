@@ -33,6 +33,7 @@ div#fullpage {
 	height: 100vh;
 	margin: 0;
 	padding: 0;
+    background-color: #ffcc5c;
 }
 
 a.langOption{
