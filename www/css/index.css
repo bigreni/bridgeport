@@ -33,14 +33,20 @@ div#fullpage {
 	height: 100vh;
 	margin: 0;
 	padding: 0;
-    background-color: #ffcc5c;
+    background-color: #fee7b9;
 }
 
 a.langOption{
+    color: white;
     text-decoration: none;
 }
 
-a:link
+a.langOption:hover
+{
+    color: #fff;
+}
+
+a
 {
     color: #333;
     text-decoration: none;
@@ -74,7 +80,7 @@ h4.selectLanguage {
     text-decoration: none;
     text-shadow: none;
     padding: 5px 0 5px 0;
-    background-color: #808080;
+    background-color: #002a5c;
 }
 
 h3 {
