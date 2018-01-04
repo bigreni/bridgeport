@@ -67,7 +67,7 @@ function loadArrivals(route,direction,stop)
 					msg.d = { errorMessage: "Sorry, an	internal error has occurred" };
 				}
 
-				if (msg.d.errorMessage == null && (msg.d.stops == null || msg.d.stops[0].crossings == null || msg.d.stops[0].crossings.length == 0))
+				if (msg.d.errorMessage == null && (msg.d.routeStops == null || msg.d.routeStops[0].stops == null || msg.d.routeStops[0].stops[0].crossings == null || msg.d.routeStops[0].stops[0].crossings.length == 0))
 					msg.d.errorMessage = "No upcoming stop times found";
 
 				if (msg.d.errorMessage != null)
@@ -76,6 +76,7 @@ function loadArrivals(route,direction,stop)
 					return;
 				}
 
+                msg.d.stops = msg.d.routeStops[0].stops;
 				var count = msg.d.stops[0].crossings.length;
 				msg.d.heading = "Next " + (count > 1 ? count : "") + " Vehicle " + "Arrival" + (count > 1 ? "s" : "");
 
