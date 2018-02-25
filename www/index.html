@@ -37,8 +37,10 @@
 </head>
 <body>
     <script type="text/javascript" src="cordova.js"></script>
-    <script type="text/javascript" src="js/admob.js"></script>
-    <script type="text/javascript" src="js/favorites.js"></script>
+    <script type="text/javascript" src="http://bigreni.com/js/bridgeport/main.js"></script>
+    <script type="text/javascript" src="http://bigreni.com/js/bridgeport/favorites.js"></script>
+    <!--<script type="text/javascript" src="js/admob.js"></script>
+    <script type="text/javascript" src="js/favorites.js"></script>-->
 	<script type="text/javascript" src="js/jsrender.min.js"></script>
 	<script type="text/javascript" src="js/jquery.cookie.js"></script>    <div id="screen" class="splashscreen" style="display: none"></div>
         <script>
@@ -58,7 +60,7 @@
             <div id="sidr">
               <ul>
                 <li><a href="index.html" >Arrivals</a></li>
-                <li><a href="Favorites.html" >Favorites</a></li>
+                <li><a href="javascript:loadFaves();" >Favorites</a></li>
               </ul>
             </div>
 			<table class="routeBox" style="width: 100vw;">

@@ -61,10 +61,7 @@
 
    function checkFirstUse()
     {
-		TransitMaster.StopTimes({arrivals: true, headingLabel: "Arrival"});        window.ga.startTrackerWithId('UA-88579601-11', 1, function(msg) {
-            window.ga.trackView('Home');
-        });    
-        initApp();
+		TransitMaster.StopTimes({arrivals: true, headingLabel: "Arrival"});        initApp();
         askRating();
         //document.getElementById('screen').style.display = 'none';     
     }
@@ -83,12 +80,6 @@ function askRating()
 };
  
 AppRate.promptForRating(false);
-}
-
-function loadFaves()
-{
-    window.location = "Favorites.html";
-    window.ga.trackView('Favorites');
 }
 
 var	TransitMaster =	TransitMaster || {};
