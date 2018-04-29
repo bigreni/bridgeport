@@ -10,8 +10,6 @@
         admobid = { // for Android
             banner: 'ca-app-pub-1683858134373419/7790106682',
             interstitial:'ca-app-pub-9249695405712287/7485127953'
-            //banner: 'ca-app-pub-3886850395157773/3411786244'
-            //interstitial: 'ca-app-pub-9249695405712287/3301233156'
         };
     } else if(/(ipod|iphone|ipad)/i.test(navigator.userAgent)) { // for ios
     admobid = {
@@ -91,6 +89,27 @@ function loadFaves()
     window.ga.trackView('Favorites');
 }
 
+function saveFavorites()
+{
+    var favStop = localStorage.getItem("Favorites");
+    var newFave = $('#MainMobileContent_routeList option:selected').val() + ">" + $("#MainMobileContent_directionList option:selected").val() + ">" + $("#MainMobileContent_stopList option:selected").val() + ":" + $('#MainMobileContent_routeList option:selected').text() + " > " + $("#MainMobileContent_directionList option:selected").text() + " > " + $("#MainMobileContent_stopList option:selected").text();
+        if (favStop == null)
+        {
+            favStop = newFave;
+        }   
+        else if(favStop.indexOf(newFave) == -1)
+        {
+            favStop = favStop + "|" + newFave;               
+        }
+        else
+        {
+            $("#message").text('Stop is already favorited!!');
+            return;
+        }
+        localStorage.setItem("Favorites", favStop);
+        $("#message").text('Stop added to favorites!!');
+}
+
 var	TransitMaster =	TransitMaster || {};
 
 TransitMaster.StopTimes = function (options) {
@@ -166,6 +185,7 @@ TransitMaster.StopTimes = function (options) {
             success: function (msg) {
                 if (msg.d == null || msg.d.length == 0) {
                     $("#MainMobileContent_routeList").text("No routes found");
+                    displayError("GBT is currently experiencing problems with real-time arrivals. We are working on resolving it. Thank you for your patience.");
                     return;
                 }
 
@@ -181,6 +201,7 @@ TransitMaster.StopTimes = function (options) {
             },
             error: function () {
                 $("#MainMobileContent_routeList").text("Failed to load routes");
+                displayError("GBT is currently experiencing problems with real-time arrivals. We are working on resolving it. Thank you for your patience.");
             },
             complete: function (jqXHR, textStatus) {
                 $("#routeWait").addClass("hidden");
@@ -220,6 +241,7 @@ TransitMaster.StopTimes = function (options) {
             success: function (msg) {
                 if (msg.d == null || msg.d.length == 0) {
                     $("#MainMobileContent_directionList").text("No directions found");
+                    displayError("GBT is currently experiencing problems with real-time arrivals. We are working on resolving it. Thank you for your patience.");
                     return;
                 }
 
@@ -236,6 +258,7 @@ TransitMaster.StopTimes = function (options) {
             },
             error: function () {
                 $("#MainMobileContent_directionList").text("Failed to load directions");
+                displayError("GBT is currently experiencing problems with real-time arrivals. We are working on resolving it. Thank you for your patience.");
             },
             complete: function (jqXHR, textStatus) {
                 $("#directionWait").addClass("hidden");
@@ -265,6 +288,7 @@ TransitMaster.StopTimes = function (options) {
             success: function (msg) {
                 if (msg.d == null || msg.d.length == 0) {
                     $("#MainMobileContent_stopList").text("No stops	found");
+                    displayError("GBT is currently experiencing problems with real-time arrivals. We are working on resolving it. Thank you for your patience.");
                     return;
                 }
                 $(list).empty();
@@ -275,11 +299,12 @@ TransitMaster.StopTimes = function (options) {
                     //$(list).get(0).options[$(list).get(0).options.length] = new Option(item.name, item.id);
                 });
 
-                 checkListCookie("stop", "MainMobileContent_stopList");
+                checkListCookie("stop", "MainMobileContent_stopList");
 
                 initialView = false;
             },
             error: function () {
+                displayError("GBT is currently experiencing problems with real-time arrivals. We are working on resolving it. Thank you for your patience.");
                 $("#MainMobileContent_stopList").text("Failed to load stops");
             },
             complete: function (jqXHR, textStatus) {
@@ -290,60 +315,57 @@ TransitMaster.StopTimes = function (options) {
         $(".dropList").select2();
     }
 
-	function getArrivalTimes(refresh) {
-		if (!refresh)
-		{
-			reset(true);
-			$("#stopWait").removeClass("hidden");
-		}
+    function getArrivalTimes(refresh) {
+        if (!refresh) {
+            reset(true);
+            $("#stopWait").removeClass("hidden");
+        }
 
-		$.ajax({
-			type: "POST",
-			url: "http://32.219.163.149/TMWebWatch/Arrivals.aspx/getStopTimes",
-			data: "{routeID: " + $("#MainMobileContent_routeList").val() + ",	directionID: " + $("#MainMobileContent_directionList").val() + ",	stopID:	" + $("#MainMobileContent_stopList").val() + ", useArrivalTimes:	" + settings.arrivals + "}",
-			contentType: "application/json;	charset=utf-8",
-			dataType: "json",
-			success: function (msg) {
-				if (msg.d == null)
-				{
-					msg.d = { errorMessage: "Sorry, an internal error has occurred" };
-				}
+        $.ajax({
+            type: "POST",
+            url: "http://32.219.163.149/TMWebWatch/Arrivals.aspx/getStopTimes",
+            data: "{routeID: " + $("#MainMobileContent_routeList").val() + ",	directionID: " + $("#MainMobileContent_directionList").val() + ",	stopID:	" + $("#MainMobileContent_stopList").val() + ", useArrivalTimes:	" + settings.arrivals + "}",
+            contentType: "application/json;	charset=utf-8",
+            dataType: "json",
+            success: function (msg) {
+                if (msg.d == null) {
+                    msg.d = { errorMessage: "GBT is currently experiencing problems with real-time arrivals. We are working on resolving it. Thank you for your patience." };
+                }
 
-				if (msg.d.errorMessage == null && (msg.d.routeStops == null || msg.d.routeStops[0].stops == null || msg.d.routeStops[0].stops[0].crossings == null || msg.d.routeStops[0].stops[0].crossings.length == 0))
-					msg.d.errorMessage = "No upcoming stop times found";
+                if (msg.d.errorMessage == null && (msg.d.routeStops == null || msg.d.routeStops[0].stops == null || msg.d.routeStops[0].stops[0].crossings == null || msg.d.routeStops[0].stops[0].crossings.length == 0))
+                    msg.d.errorMessage = "No upcoming stop times found";
 
-				if (msg.d.errorMessage != null)
-				{
-					displayError(msg.d.errorMessage);
-					return;
-				}
+                if (msg.d.errorMessage != null) {
+                    displayError(msg.d.errorMessage);
+                    return;
+                }
 
                 msg.d.stops = msg.d.routeStops[0].stops;
-				var count = msg.d.stops[0].crossings.length;
-				msg.d.heading = "Next " + (count > 1 ? count : "") + " Vehicle " + settings.headingLabel + (count > 1 ? "s" : "");
+                var count = msg.d.stops[0].crossings.length;
+                msg.d.heading = "Next " + (count > 1 ? count : "") + " Vehicle " + settings.headingLabel + (count > 1 ? "s" : "");
 
-				var result = $("#stopTemplate").render(msg.d);
+                var result = $("#stopTemplate").render(msg.d);
 
-				if (refresh)
-					$("#resultBox").html($(result).html());
-				else
-					displayResultsBox(result);
+                if (refresh)
+                    $("#resultBox").html($(result).html());
+                else
+                    displayResultsBox(result);
 
-				if (!refresh)
-					timer = window.setInterval(function () {
-						getArrivalTimes(true);
-					}, 30000);
-			},
-			error: function () {
-				displayError("Failed to	load stop times");
-			},
-			complete: function (jqXHR, textStatus) {
-				$("#stopWait").addClass("hidden");
-			}
-		});
+                if (!refresh)
+                    timer = window.setInterval(function () {
+                        getArrivalTimes(true);
+                    }, 30000);
+            },
+            error: function () {
+                displayError("GBT is currently experiencing problems with real-time arrivals. We are working on resolving it. Thank you for your patience.");
+            },
+            complete: function (jqXHR, textStatus) {
+                $("#stopWait").addClass("hidden");
+            }
+        });
         $("span").remove();
         $(".dropList").select2();
-	}
+    }
 
     function displayError(error) {
         reset(true);

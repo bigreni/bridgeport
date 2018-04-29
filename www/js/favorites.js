@@ -15,27 +15,6 @@ function loadFavorites()
     }
 }
 
-function saveFavorites()
-{
-    var favStop = localStorage.getItem("Favorites");
-    var newFave = $('#MainMobileContent_routeList option:selected').val() + ">" + $("#MainMobileContent_directionList option:selected").val() + ">" + $("#MainMobileContent_stopList option:selected").val() + ":" + $('#MainMobileContent_routeList option:selected').text() + " > " + $("#MainMobileContent_directionList option:selected").text() + " > " + $("#MainMobileContent_stopList option:selected").text();
-        if (favStop == null)
-        {
-            favStop = newFave;
-        }   
-        else if(favStop.indexOf(newFave) == -1)
-        {
-            favStop = favStop + "|" + newFave;               
-        }
-        else
-        {
-            $("#message").text('Stop is already favorited!!');
-            return;
-        }
-        localStorage.setItem("Favorites", favStop);
-        $("#message").text('Stop added to favorites!!');
-}
-
 function removeFavorite(index)
 {
     var favStop = localStorage.getItem("Favorites");
@@ -64,7 +43,7 @@ function loadArrivals(route,direction,stop)
 			success: function (msg) {
 				if (msg.d == null)
 				{
-					msg.d = { errorMessage: "Sorry, an	internal error has occurred" };
+					msg.d = { errorMessage: "GBT is currently experiencing problems with real-time arrivals. We are working on resolving it. Thank you for your patience." };
 				}
 
 				if (msg.d.errorMessage == null && (msg.d.routeStops == null || msg.d.routeStops[0].stops == null || msg.d.routeStops[0].stops[0].crossings == null || msg.d.routeStops[0].stops[0].crossings.length == 0))
@@ -94,7 +73,7 @@ function loadArrivals(route,direction,stop)
             //    }, 30000);
         },
         error: function () {
-            displayError("Failed to	load stop times");
+            displayError("GBT is currently experiencing problems with real-time arrivals. We are working on resolving it. Thank you for your patience.");
         },
         complete: function (jqXHR, textStatus) {
             $("#stopWait").addClass("hidden");
