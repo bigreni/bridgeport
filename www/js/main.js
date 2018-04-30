@@ -39,13 +39,13 @@
     function registerAdEvents() {
         // new events, with variable to differentiate: adNetwork, adType, adEvent
         document.addEventListener('onAdFailLoad', function (data) {
-            document.getElementById('screen').style.display = 'none';     
+            document.getElementById("screen").style.display = 'none';     
         });
         document.addEventListener('onAdLoaded', function (data) { });
         document.addEventListener('onAdPresent', function (data) { });
         document.addEventListener('onAdLeaveApp', function (data) { });
         document.addEventListener('onAdDismiss', function (data) {
-           document.getElementById('screen').style.display = 'none';     
+           document.getElementById("screen").style.display = 'none';     
         });
     }
 
@@ -59,12 +59,12 @@
 
    function checkFirstUse()
     {
-		TransitMaster.StopTimes({arrivals: true, headingLabel: "Arrival"});        window.ga.startTrackerWithId('UA-88579601-11', 1, function(msg) {
+		TransitMaster.StopTimes({arrivals: true, headingLabel: "Arrival"});        window.ga.startTrackerWithId('UA-88579601-11', 1, function(msg) {
             window.ga.trackView('Home');
         });    
         initApp();
         askRating();
-        //document.getElementById('screen').style.display = 'none';     
+        //document.getElementById("screen").style.display = 'none';     
     }
 
 function askRating()
