@@ -59,7 +59,8 @@
 
    function checkFirstUse()
     {
-		TransitMaster.StopTimes({arrivals: true, headingLabel: "Arrival"});        window.ga.startTrackerWithId('UA-88579601-11', 1, function(msg) {
+		TransitMaster.StopTimes({arrivals: true, headingLabel: "Arrival"});
+        window.ga.startTrackerWithId('UA-88579601-11', 1, function(msg) {
             window.ga.trackView('Home');
         });    
         initApp();
@@ -179,7 +180,7 @@ TransitMaster.StopTimes = function (options) {
 
         $.ajax({
             type: "POST",
-            url: "http://32.219.163.149/TMWebWatch/Arrivals.aspx/getRoutes",
+            url: "http://173.220.220.67/TMWebWatch/Arrivals.aspx/getRoutes",
             contentType: "application/json;	charset=utf-8",
             dataType: "json",
             success: function (msg) {
@@ -234,7 +235,7 @@ TransitMaster.StopTimes = function (options) {
 
         $.ajax({
             type: "POST",
-            url: "http://32.219.163.149/TMWebWatch/Arrivals.aspx/getDirections",
+            url: "http://173.220.220.67/TMWebWatch/Arrivals.aspx/getDirections",
             data: "{routeID: " + $("#MainMobileContent_routeList").val() + "}",
             contentType: "application/json;	charset=utf-8",
             dataType: "json",
@@ -281,7 +282,7 @@ TransitMaster.StopTimes = function (options) {
 
         $.ajax({
             type: "POST",
-            url: "http://32.219.163.149/TMWebWatch/Arrivals.aspx/getStops",
+            url: "http://173.220.220.67/TMWebWatch/Arrivals.aspx/getStops",
             data: "{routeID: " + $("#MainMobileContent_routeList").val() + ",	directionID: " + $("#MainMobileContent_directionList").val() + "}",
             contentType: "application/json;	charset=utf-8",
             dataType: "json",
@@ -323,7 +324,7 @@ TransitMaster.StopTimes = function (options) {
 
         $.ajax({
             type: "POST",
-            url: "http://32.219.163.149/TMWebWatch/Arrivals.aspx/getStopTimes",
+            url: "http://173.220.220.67/TMWebWatch/Arrivals.aspx/getStopTimes",
             data: "{routeID: " + $("#MainMobileContent_routeList").val() + ",	directionID: " + $("#MainMobileContent_directionList").val() + ",	stopID:	" + $("#MainMobileContent_stopList").val() + ", useArrivalTimes:	" + settings.arrivals + "}",
             contentType: "application/json;	charset=utf-8",
             dataType: "json",

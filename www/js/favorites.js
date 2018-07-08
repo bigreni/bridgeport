@@ -36,7 +36,7 @@ function loadArrivals(route,direction,stop)
 {
 		$.ajax({
 			type: "POST",
-			url: "http://32.219.163.149/TMWebWatch/Arrivals.aspx/getStopTimes",
+			url: "http://173.220.220.67/TMWebWatch/Arrivals.aspx/getStopTimes",
 			data: "{routeID: " + route + ",	directionID: " + direction + ",	stopID:	" + stop + ", useArrivalTimes: true}",
 			contentType: "application/json;	charset=utf-8",
 			dataType: "json",
