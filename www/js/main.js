@@ -84,11 +84,11 @@ function askRating()
 AppRate.promptForRating(false);
 }
 
-function loadFaves()
-{
-    window.location = "Favorites.html";
-    window.ga.trackView('Favorites');
-}
+//function loadFaves()
+//{
+//    window.location = "Favorites.html";
+//    window.ga.trackView('Favorites');
+//}
 
 function saveFavorites()
 {
