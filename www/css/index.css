@@ -23,9 +23,10 @@
 body {
 	width: 100%;
 	height: 100%;
-	margin: 0;
-	padding: 0;
-	overflow: hidden;
+	margin: 0 0 20px 0;
+	padding: 0 0 70px 0;
+	overflow: auto;
+    background-color: #fee7b9;
 }
 
 div#fullpage {
@@ -33,7 +34,6 @@ div#fullpage {
 	height: 100vh;
 	margin: 0;
 	padding: 0;
-    background-color: #fee7b9;
 }
 
 a.langOption{

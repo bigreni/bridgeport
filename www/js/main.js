@@ -2,7 +2,7 @@
         if ((/(ipad|iphone|ipod|android|windows phone)/i.test(navigator.userAgent))) {
             document.addEventListener('deviceready', checkFirstUse, false);
         } else {
-            checkFirstUse();
+            notFirstUse();
         }
     }
     var admobid = {};
@@ -60,13 +60,24 @@
    function checkFirstUse()
     {
 		TransitMaster.StopTimes({arrivals: true, headingLabel: "Arrival"});
-        window.ga.startTrackerWithId('UA-88579601-11', 1, function(msg) {
-            window.ga.trackView('Home');
-        });    
         initApp();
         askRating();
+        //window.ga.startTrackerWithId('UA-88579601-11', 1, function(msg) {
+        //    window.ga.trackView('Home');
+        //});  
         //document.getElementById("screen").style.display = 'none';     
     }
+
+   function notFirstUse()
+    {
+		TransitMaster.StopTimes({arrivals: true, headingLabel: "Arrival"});
+        document.getElementById("screen").style.display = 'none';     
+    }
+
+function loadFaves()
+{
+    window.location = "Favorites.html";
+}
 
 function askRating()
 {
