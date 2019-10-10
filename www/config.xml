@@ -29,7 +29,7 @@ xmlns:gap="http://phonegap.com/ns/1.0"
     <preference name="ios-statusbarstyle" value="black" />
     <preference name="detect-data-types" value="true" />
     <preference name="exit-on-suspend" value="false" />
-    <preference name="show-splash-screen-spinner" value="true" />
+    <preference name="SplashScreenDelay" value="0"/>
     <preference name="auto-hide-splash-screen" value="true" />
     <preference name="DisallowOverscroll" value ="true" />
     <preference name="disable-cursor" value="false" />
@@ -44,7 +44,7 @@ xmlns:gap="http://phonegap.com/ns/1.0"
     <gap:plugin name="cordova-plugin-whitelist" source="npm"/>
     <gap:plugin name="cordova-plugin-dialogs" source="npm"/>
     <gap:plugin name="cordova-plugin-apprate" source="npm"/>
-    <!--<gap:plugin name="cordova-plugin-google-analytics" source="npm"/>-->
+    <!--<gap:plugin name="cordova-plugin-google-analytics" source="npm" spec="1.8.3"/>-->
     <allow-navigation href="http://*/*" />
     <allow-navigation href="https://*/*" />
     <allow-navigation href="data:*" />

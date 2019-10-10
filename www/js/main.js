@@ -196,8 +196,9 @@ TransitMaster.StopTimes = function (options) {
             dataType: "json",
             success: function (msg) {
                 if (msg.d == null || msg.d.length == 0) {
+                    alert(msg);
                     $("#MainMobileContent_routeList").text("No routes found");
-                    displayError("GBT is currently experiencing problems with real-time arrivals. We are working on resolving it. Thank you for your patience.");
+                    displayError("1. GBT is currently experiencing problems with real-time arrivals. We are working on resolving it. Thank you for your patience.");
                     return;
                 }
 
@@ -213,7 +214,7 @@ TransitMaster.StopTimes = function (options) {
             },
             error: function () {
                 $("#MainMobileContent_routeList").text("Failed to load routes");
-                displayError("GBT is currently experiencing problems with real-time arrivals. We are working on resolving it. Thank you for your patience.");
+                displayError("2. GBT is currently experiencing problems with real-time arrivals. We are working on resolving it. Thank you for your patience.");
             },
             complete: function (jqXHR, textStatus) {
                 $("#routeWait").addClass("hidden");
