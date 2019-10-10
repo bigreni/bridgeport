@@ -66,6 +66,12 @@
     <div id="fullpage" data-role="page">
 		<div id="contentBox" class="box">
                  <h3>GBT Live Arrival Times</h3>
+            <!--<div id="sidr">
+              <ul>
+                <li><a href="index.html" >Arrivals</a></li>
+                <li><a href="Favorites.html" >Favorites</a></li>
+              </ul>
+            </div>-->
 			<table class="routeBox" style="width: 100vw;">
 				<tr>
 					<td colspan="2">Route:</td>
@@ -106,7 +112,7 @@
 	</script><script id="stopTemplate" type="text/x-jquery-tmpl">
 		<div id="resultBox" class="resultBox">
 			<h2>{{:heading}}</h2>
-            <h2 style="text-align:center;"><button onclick="saveFavorites();" style="border:none; background-color:green; color:black;">&#x2764; Add to favorites</button></h2>
+            <h2 style="text-align:center;"><button onclick="saveFavorites();" style="border:none; background-color:green; color:black;">&#x271A; Add to favorites</button></h2>
             <span id="message"></span>
 			<table>
 				{{for stops[0].crossings}}
