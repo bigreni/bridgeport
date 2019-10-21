@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget 
 id="com.bridgeport.free" 
-version="1.0.8"
+version="1.0.9"
 versionCode = "9" 
 xmlns="http://www.w3.org/ns/widgets"
 xmlns:android="http://schemas.android.com/apk/res/android"
