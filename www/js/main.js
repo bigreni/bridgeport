@@ -57,8 +57,8 @@
 
     function loadInterstitial() {
         if ((/(android|windows phone)/i.test(navigator.userAgent))) {
-            //AdMob.prepareInterstitial({ adId: admobid.interstitial, isTesting: false, autoShow: false });
-            document.getElementById("screen").style.display = 'none';     
+            AdMob.prepareInterstitial({ adId: admobid.interstitial, isTesting: false, autoShow: false });
+            //document.getElementById("screen").style.display = 'none';     
         } else if ((/(ipad|iphone|ipod)/i.test(navigator.userAgent))) {
             AdMob.prepareInterstitial({ adId: admobid.interstitial, isTesting: false, autoShow: true });
             //document.getElementById("screen").style.display = 'none';     
@@ -344,11 +344,15 @@ TransitMaster.StopTimes = function (options) {
             reset(true);
             $("#stopWait").removeClass("hidden");
         }
+		
+		var sInfo = $("#MainMobileContent_stopList").val();
+		var s_tp = sInfo.split("_");
 
         $.ajax({
             type: "POST",
             url: "http://173.220.220.67/TMWebWatch/Arrivals.aspx/getStopTimes",
-            data: "{routeID: " + $("#MainMobileContent_routeList").val() + ",	directionID: " + $("#MainMobileContent_directionList").val() + ",	stopID:	" + $("#MainMobileContent_stopList").val() + ", useArrivalTimes:	" + settings.arrivals + "}",
+            //data: "{routeID: " + $("#MainMobileContent_routeList").val() + ",	directionID: " + $("#MainMobileContent_directionList").val() + ",	stopID:	" + s_tp[0] + ", tpID: " + s_tp[1] + ", useArrivalTimes:	" + settings.arrivals + "}",
+            data: "{routeID: " + $("#MainMobileContent_routeList").val() + ",	directionID: " + $("#MainMobileContent_directionList").val() + ",	stopID:	" + s_tp[0] + ", tpID: 1"  + ", useArrivalTimes:	" + settings.arrivals + "}",
             contentType: "application/json;	charset=utf-8",
             dataType: "json",
             success: function (msg) {
