@@ -352,12 +352,12 @@ TransitMaster.StopTimes = function (options) {
             type: "POST",
             url: "http://173.220.220.67/TMWebWatch/Arrivals.aspx/getStopTimes",
             //data: "{routeID: " + $("#MainMobileContent_routeList").val() + ",	directionID: " + $("#MainMobileContent_directionList").val() + ",	stopID:	" + s_tp[0] + ", tpID: " + s_tp[1] + ", useArrivalTimes:	" + settings.arrivals + "}",
-            data: "{routeID: " + $("#MainMobileContent_routeList").val() + ",	directionID: " + $("#MainMobileContent_directionList").val() + ",	stopID:	" + s_tp[0] + ", tpID: 1"  + ", useArrivalTimes:	" + settings.arrivals + "}",
+            data: "{routeID: " + $("#MainMobileContent_routeList").val() + ",	directionID: " + $("#MainMobileContent_directionList").val() + ",	stopID:	" + s_tp[0] + ", tpID: 0"  + ", useArrivalTimes:	" + settings.arrivals + "}",
             contentType: "application/json;	charset=utf-8",
             dataType: "json",
             success: function (msg) {
                 if (msg.d == null) {
-                    msg.d = { errorMessage: "GBT is currently experiencing problems with real-time arrivals. We are working on resolving it. Thank you for your patience." };
+                    msg.d = { errorMessage: "1GBT is currently experiencing problems with real-time arrivals. We are working on resolving it. Thank you for your patience." };
                 }
 
                 if (msg.d.errorMessage == null && (msg.d.routeStops == null || msg.d.routeStops[0].stops == null || msg.d.routeStops[0].stops[0].crossings == null || msg.d.routeStops[0].stops[0].crossings.length == 0))
@@ -385,7 +385,7 @@ TransitMaster.StopTimes = function (options) {
                     }, 30000);
             },
             error: function () {
-                displayError("GBT is currently experiencing problems with real-time arrivals. We are working on resolving it. Thank you for your patience.");
+                displayError("GBT is currently experiencing problems with real-time arrivals. Thank you for your patience.");
             },
             complete: function (jqXHR, textStatus) {
                 $("#stopWait").addClass("hidden");
