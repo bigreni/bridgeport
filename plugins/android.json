@@ -39,9 +39,6 @@
     },
     "cordova-plugin-nativestorage": {
       "PACKAGE_NAME": "com.bridgeport.free"
-    },
-    "cordova-plugin-statusbar": {
-      "PACKAGE_NAME": "com.bridgeport.free"
     }
   }
 }

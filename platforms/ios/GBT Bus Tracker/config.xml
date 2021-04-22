@@ -44,13 +44,9 @@
     <feature name="Geolocation">
         <param name="ios-package" value="CDVLocation" />
     </feature>
-    <feature name="StatusBar">
-        <param name="ios-package" value="CDVStatusBar" />
-        <param name="onload" value="true" />
-    </feature>
     <name>GBT Bus Tracker</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+        Bus App.
     </description>
     <author email="dev@cordova.apache.org" href="http://cordova.io">
         Apache Cordova Team
@@ -79,16 +75,16 @@
     <icon src="icon.png" />
     <allow-intent href="itms:*" />
     <allow-intent href="itms-apps:*" />
+    <icon height="40" src="res/icon/ios/Icon40.png" width="40" />
+    <icon height="50" src="res/icon/ios/Icon50.png" width="50" />
     <icon height="57" src="res/icon/ios/Icon57.png" width="57" />
     <icon height="72" src="res/icon/ios/Icon72.png" width="72" />
-    <icon height="114" src="res/icon/ios/Icon114.png" width="114" />
-    <icon height="144" src="res/icon/ios/Icon144.png" width="144" />
-    <icon height="120" src="res/icon/ios/Icon120.png" width="120" />
     <icon height="76" src="res/icon/ios/Icon76.png" width="76" />
-    <icon height="152" src="res/icon/ios/Icon152.png" width="152" />
-    <icon height="50" src="res/icon/ios/Icon50.png" width="50" />
-    <icon height="40" src="res/icon/ios/Icon40.png" width="40" />
     <icon height="100" src="res/icon/ios/Icon100.png" width="100" />
+    <icon height="114" src="res/icon/ios/Icon114.png" width="114" />
+    <icon height="120" src="res/icon/ios/Icon120.png" width="120" />
+    <icon height="144" src="res/icon/ios/Icon144.png" width="144" />
+    <icon height="152" src="res/icon/ios/Icon152.png" width="152" />
     <preference name="AllowInlineMediaPlayback" value="false" />
     <preference name="BackupWebStorage" value="cloud" />
     <preference name="DisallowOverscroll" value="true" />
@@ -102,8 +98,6 @@
     <preference name="PageLength" value="0" />
     <preference name="PaginationBreakingMode" value="page" />
     <preference name="PaginationMode" value="unpaginated" />
-    <preference name="StatusBarOverlaysWebView" value="false" />
-    <preference name="StatusBarStyle" value="lightcontent" />
     <preference name="android-build-tool" value="gradle" />
     <preference name="permissions" value="none" />
     <preference name="orientation" value="portrait" />
@@ -119,6 +113,7 @@
     <preference name="auto-hide-splash-screen" value="true" />
     <preference name="disable-cursor" value="false" />
     <preference name="android-minSdkVersion" value="24" />
-    <preference name="android-targetSdkVersion" value="28" />
+    <preference name="android-targetSdkVersion" value="29" />
     <preference name="android-installLocation" value="auto" />
+    <preference name="StatusBarOverlaysWebView" value="false" />
 </widget>
