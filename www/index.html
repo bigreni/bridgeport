@@ -10,8 +10,6 @@
     //document.write('<link rel="stylesheet" type="text/css" href="css/index.css?cb=' +cachebuster+'"></li' + 'nk>');
     document.write('<link rel="stylesheet" type="text/css" href="https://s3.us-east-2.amazonaws.com/bigreni.com/css/bridgeport/index.css?cb=' +cachebuster+'"></li' + 'nk>');
 </script>
-<!--<link rel="stylesheet" type="text/css" href="http://bigreni.com/css/bridgeport/index.css" />-->
-<!--<link rel="stylesheet" type="text/css" href="css/index.css" />-->
 <!-- Include jQuery Mobile stylesheets -->
 <!--<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">-->
 <!-- Include the jQuery library -->
@@ -20,8 +18,6 @@
 <!--<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>-->
 <link href="css/select2.min.css" rel="stylesheet" />
 <script src="js/select2.min.js"></script>
-<link rel="stylesheet" href="css/jquery.sidr.dark.min.css">
-<script src="js/jquery.sidr.min.js"></script>
 <title>GBT Arrivals</title>
     <style>
             /* Hide all the app pages until jQuery Mobile inits to
@@ -44,8 +40,6 @@
 </head>
 <body>
     <script type="text/javascript" src="cordova.js"></script>
-    <!--<script type="text/javascript" src="http://bigreni.com/js/bridgeport/main.js"></script>-->
-    <!--<script type="text/javascript" src="js/main.js" ></script>-->
     <script type="text/javascript">
         //document.write('<script type="text/javascript" src="https://s3.us-east-2.amazonaws.com/bigreni.com/js/bridgeport/main.js?cb=' +cachebuster+'"></scr' + 'ipt>');
         document.write('<script type="text/javascript" src="js/main.js?cb=' +cachebuster+'"></scr' + 'ipt>');
@@ -66,12 +60,6 @@
     <div id="fullpage" data-role="page">
 		<div id="contentBox" class="box">
                  <h3>GBT Live Arrival Times</h3>
-            <!--<div id="sidr">
-              <ul>
-                <li><a href="index.html" >Arrivals</a></li>
-                <li><a href="Favorites.html" >Favorites</a></li>
-              </ul>
-            </div>-->
 			<table class="routeBox" style="width: 100vw;">
 				<tr>
 					<td colspan="2">Route:</td>
@@ -106,10 +94,13 @@
 				</tr>
 			</table>
 		</div>
-	<!-- Templates for stop times-->
+
+	<!-- Templates for stop times-->
 	<script id="errorTemplate" type="text/x-jquery-tmpl">
 		<div id="resultBox" class="errorBox"><table><tr><td>{{:error}}</td></tr></table></div>
-	</script><script id="stopTemplate" type="text/x-jquery-tmpl">
+	</script>
+
+<script id="stopTemplate" type="text/x-jquery-tmpl">
 		<div id="resultBox" class="resultBox">
 			<h2>{{:heading}}</h2>
             <h2 style="text-align:center;"><button onclick="saveFavorites();" style="border:none; background-color:green; color:black;">&#x271A; Add to favorites</button></h2>
@@ -146,7 +137,8 @@
 				</tr>
 			</table>
 		</div>
-	</script></div>
+	</script>
+</div>
     <div id="footer">
       <div class="col-xs-12 navbar-inverse navbar-fixed-bottom">
       <div class="row" id="bottomNav">
@@ -157,5 +149,6 @@
     </div>
 
         <script type='text/javascript' src="js/bootstrap.min.js"></script>
-</body>
+
+</body>
 </html>
