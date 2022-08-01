@@ -24,9 +24,6 @@
     "cordova-plugin-geolocation": {
       "GPS_REQUIRED": "true",
       "PACKAGE_NAME": "com.bridgeport.free"
-    },
-    "cordova-plugin-whitelist": {
-      "PACKAGE_NAME": "com.bridgeport.free"
     }
   },
   "dependent_plugins": {

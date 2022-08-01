@@ -2,7 +2,7 @@
 
 platform :ios, '11.0'
 
-target 'C:\Users\nai\Documents\GitHub\bridgeport\platforms\ios\GBT Bus Tracker' do
-	project 'C:\Users\nai\Documents\GitHub\bridgeport\platforms\ios\GBT Bus Tracker.xcodeproj'
+target 'C:\Users\naiar\Documents\GitHub\bridgeport\platforms\ios\GBT Bus Tracker' do
+	project 'C:\Users\naiar\Documents\GitHub\bridgeport\platforms\ios\GBT Bus Tracker.xcodeproj'
 
 end

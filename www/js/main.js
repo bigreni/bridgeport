@@ -42,10 +42,12 @@
             document.getElementById("screen").style.display = 'none';     
         });
         document.addEventListener('onAdLoaded', function (data) {
-            AdMob.showInterstitial();
+            document.getElementById("screen").style.display = 'none';     
         });
         document.addEventListener('onAdPresent', function (data) { });
-        document.addEventListener('onAdLeaveApp', function (data) { });
+        document.addEventListener('onAdLeaveApp', function (data) { 
+            document.getElementById("screen").style.display = 'none';     
+        });
         document.addEventListener('onAdDismiss', function (data) {
            document.getElementById("screen").style.display = 'none';     
         });
@@ -73,9 +75,6 @@
 		TransitMaster.StopTimes({arrivals: true, headingLabel: "Arrival"});
         initApp();
         askRating();
-        //window.ga.startTrackerWithId('UA-88579601-11', 1, function(msg) {
-        //    window.ga.trackView('Home');
-        //});  
         //document.getElementById("screen").style.display = 'none';     
     }
 
@@ -87,16 +86,20 @@
 
 function loadFaves()
 {
+    showAd();
     window.location = "Favorites.html";
 }
 
 function askRating()
 {
-  AppRate.preferences = {
-  openStoreInApp: true,
-  useLanguage:  'en',
-  usesUntilPrompt: 10,
-  promptAgainForEachNewVersion: true,
+AppRate.preferences = {
+    useLanguage:  'en',
+    usesUntilPrompt: 10,
+    promptAgainForEachNewVersion: true,
+    reviewType: {
+        ios: 'AppStoreReview',
+        android: 'InAppBrowser'
+    },
   storeAppURL: {
                 ios: '1227308869',
                 android: 'market://details?id=com.bridgeport.free'
@@ -106,11 +109,6 @@ function askRating()
 AppRate.promptForRating(false);
 }
 
-//function loadFaves()
-//{
-//    window.location = "Favorites.html";
-//    window.ga.trackView('Favorites');
-//}
 
 function saveFavorites()
 {
@@ -131,6 +129,18 @@ function saveFavorites()
         }
         localStorage.setItem("Favorites", favStop);
         $("#message").text('Stop added to favorites!!');
+}
+
+function showAd()
+{
+    document.getElementById("screen").style.display = 'block'; 
+    if ((/(android|windows phone)/i.test(navigator.userAgent))) {
+        AdMob.isInterstitialReady(function(isready){
+            if(isready) 
+                AdMob.showInterstitial();
+        });
+    }
+    document.getElementById("screen").style.display = 'none'; 
 }
 
 var	TransitMaster =	TransitMaster || {};
@@ -340,6 +350,7 @@ TransitMaster.StopTimes = function (options) {
     }
 
     function getArrivalTimes(refresh) {
+        showAd();
         if (!refresh) {
             reset(true);
             $("#stopWait").removeClass("hidden");
@@ -357,7 +368,7 @@ TransitMaster.StopTimes = function (options) {
             dataType: "json",
             success: function (msg) {
                 if (msg.d == null) {
-                    msg.d = { errorMessage: "1GBT is currently experiencing problems with real-time arrivals. We are working on resolving it. Thank you for your patience." };
+                    msg.d = { errorMessage: "GBT is currently experiencing problems with real-time arrivals. We are working on resolving it. Thank you for your patience." };
                 }
 
                 if (msg.d.errorMessage == null && (msg.d.routeStops == null || msg.d.routeStops[0].stops == null || msg.d.routeStops[0].stops[0].crossings == null || msg.d.routeStops[0].stops[0].crossings.length == 0))
