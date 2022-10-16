@@ -74,6 +74,7 @@
     {
 		TransitMaster.StopTimes({arrivals: true, headingLabel: "Arrival"});
         initApp();
+        checkPermissions();
         askRating();
         //document.getElementById("screen").style.display = 'none';     
     }
@@ -90,17 +91,36 @@ function loadFaves()
     window.location = "Favorites.html";
 }
 
+function checkPermissions(){
+    const idfaPlugin = cordova.plugins.idfa;
+
+    idfaPlugin.getInfo()
+        .then(info => {
+            if (!info.trackingLimited) {
+                return info.idfa || info.aaid;
+            } else if (info.trackingPermission === idfaPlugin.TRACKING_PERMISSION_NOT_DETERMINED) {
+                return idfaPlugin.requestPermission().then(result => {
+                    if (result === idfaPlugin.TRACKING_PERMISSION_AUTHORIZED) {
+                        return idfaPlugin.getInfo().then(info => {
+                            return info.idfa || info.aaid;
+                        });
+                    }
+                });
+            }
+        });
+}
+
 function askRating()
 {
-AppRate.preferences = {
+cordova.plugins.AppRate.setPreferences = {
+reviewType: {
+    ios: 'AppStoreReview',
+    android: 'InAppBrowser'
+    },
     useLanguage:  'en',
     usesUntilPrompt: 10,
     promptAgainForEachNewVersion: true,
-    reviewType: {
-        ios: 'AppStoreReview',
-        android: 'InAppBrowser'
-    },
-  storeAppURL: {
+    storeAppURL: {
                 ios: '1227308869',
                 android: 'market://details?id=com.bridgeport.free'
                }
@@ -133,8 +153,8 @@ function saveFavorites()
 
 function showAd()
 {
-    document.getElementById("screen").style.display = 'block'; 
-    if ((/(android|windows phone)/i.test(navigator.userAgent))) {
+    document.getElementById("screen").style.display = 'block';     
+    if ((/(ipad|iphone|ipod|android|windows phone)/i.test(navigator.userAgent))) {
         AdMob.isInterstitialReady(function(isready){
             if(isready) 
                 AdMob.showInterstitial();

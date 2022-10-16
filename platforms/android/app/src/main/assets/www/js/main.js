@@ -42,10 +42,12 @@
             document.getElementById("screen").style.display = 'none';     
         });
         document.addEventListener('onAdLoaded', function (data) {
-            AdMob.showInterstitial();
+            document.getElementById("screen").style.display = 'none';     
         });
         document.addEventListener('onAdPresent', function (data) { });
-        document.addEventListener('onAdLeaveApp', function (data) { });
+        document.addEventListener('onAdLeaveApp', function (data) { 
+            document.getElementById("screen").style.display = 'none';     
+        });
         document.addEventListener('onAdDismiss', function (data) {
            document.getElementById("screen").style.display = 'none';     
         });
@@ -72,10 +74,8 @@
     {
 		TransitMaster.StopTimes({arrivals: true, headingLabel: "Arrival"});
         initApp();
+        checkPermissions();
         askRating();
-        //window.ga.startTrackerWithId('UA-88579601-11', 1, function(msg) {
-        //    window.ga.trackView('Home');
-        //});  
         //document.getElementById("screen").style.display = 'none';     
     }
 
@@ -87,17 +87,40 @@
 
 function loadFaves()
 {
+    showAd();
     window.location = "Favorites.html";
+}
+
+function checkPermissions(){
+    const idfaPlugin = cordova.plugins.idfa;
+
+    idfaPlugin.getInfo()
+        .then(info => {
+            if (!info.trackingLimited) {
+                return info.idfa || info.aaid;
+            } else if (info.trackingPermission === idfaPlugin.TRACKING_PERMISSION_NOT_DETERMINED) {
+                return idfaPlugin.requestPermission().then(result => {
+                    if (result === idfaPlugin.TRACKING_PERMISSION_AUTHORIZED) {
+                        return idfaPlugin.getInfo().then(info => {
+                            return info.idfa || info.aaid;
+                        });
+                    }
+                });
+            }
+        });
 }
 
 function askRating()
 {
-  AppRate.preferences = {
-  openStoreInApp: true,
-  useLanguage:  'en',
-  usesUntilPrompt: 10,
-  promptAgainForEachNewVersion: true,
-  storeAppURL: {
+cordova.plugins.AppRate.setPreferences = {
+reviewType: {
+    ios: 'AppStoreReview',
+    android: 'InAppBrowser'
+    },
+    useLanguage:  'en',
+    usesUntilPrompt: 10,
+    promptAgainForEachNewVersion: true,
+    storeAppURL: {
                 ios: '1227308869',
                 android: 'market://details?id=com.bridgeport.free'
                }
@@ -106,11 +129,6 @@ function askRating()
 AppRate.promptForRating(false);
 }
 
-//function loadFaves()
-//{
-//    window.location = "Favorites.html";
-//    window.ga.trackView('Favorites');
-//}
 
 function saveFavorites()
 {
@@ -133,6 +151,18 @@ function saveFavorites()
         $("#message").text('Stop added to favorites!!');
 }
 
+function showAd()
+{
+    document.getElementById("screen").style.display = 'block';     
+    if ((/(ipad|iphone|ipod|android|windows phone)/i.test(navigator.userAgent))) {
+        AdMob.isInterstitialReady(function(isready){
+            if(isready) 
+                AdMob.showInterstitial();
+        });
+    }
+    document.getElementById("screen").style.display = 'none'; 
+}
+
 var	TransitMaster =	TransitMaster || {};
 
 TransitMaster.StopTimes = function (options) {
@@ -141,7 +171,6 @@ TransitMaster.StopTimes = function (options) {
 
     var timer = null;
     var initialView = true;
-    $('#simplemenu').sidr();
 
     initialize();
 
@@ -340,6 +369,7 @@ TransitMaster.StopTimes = function (options) {
     }
 
     function getArrivalTimes(refresh) {
+        showAd();
         if (!refresh) {
             reset(true);
             $("#stopWait").removeClass("hidden");
@@ -357,7 +387,7 @@ TransitMaster.StopTimes = function (options) {
             dataType: "json",
             success: function (msg) {
                 if (msg.d == null) {
-                    msg.d = { errorMessage: "1GBT is currently experiencing problems with real-time arrivals. We are working on resolving it. Thank you for your patience." };
+                    msg.d = { errorMessage: "GBT is currently experiencing problems with real-time arrivals. We are working on resolving it. Thank you for your patience." };
                 }
 
                 if (msg.d.errorMessage == null && (msg.d.routeStops == null || msg.d.routeStops[0].stops == null || msg.d.routeStops[0].stops[0].crossings == null || msg.d.routeStops[0].stops[0].crossings.length == 0))
