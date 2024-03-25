@@ -7,14 +7,6 @@
     "files": {}
   },
   "installed_plugins": {
-    "cordova-admobsdk": {
-      "PACKAGE_NAME": "com.bridgeport.free"
-    },
-    "cordova-plugin-admobpro": {
-      "ADMOB_ANDROID_APP_ID": "ca-app-pub-1855415514372943~9063671314",
-      "PLAY_SERVICES_VERSION": "20.4.0",
-      "PACKAGE_NAME": "com.bridgeport.free"
-    },
     "cordova-plugin-apprate": {
       "PLAY_CORE_VERSION": "1.+",
       "PACKAGE_NAME": "com.bridgeport.free"
@@ -38,12 +30,17 @@
     },
     "cordova-plugin-wkwebview-file-xhr": {
       "PACKAGE_NAME": "com.bridgeport.free"
+    },
+    "cordova-plugin-purchase": {
+      "PACKAGE_NAME": "com.bridgeport.free"
+    },
+    "admob-plus-cordova": {
+      "APP_ID_ANDROID": "ca-app-pub-9249695405712287~3054928351",
+      "PLAY_SERVICES_VERSION": "22.6.0",
+      "PACKAGE_NAME": "com.bridgeport.free"
     }
   },
   "dependent_plugins": {
-    "cordova-plugin-extension": {
-      "PACKAGE_NAME": "com.bridgeport.free"
-    },
     "cordova-plugin-nativestorage": {
       "PACKAGE_NAME": "com.bridgeport.free"
     },
