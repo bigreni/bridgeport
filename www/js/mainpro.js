@@ -43,10 +43,10 @@ function initApp() {
 function registerAdEvents() {
 // new events, with variable to differentiate: adNetwork, adType, adEvent
     document.addEventListener('admob.ad.load', function (data) {
-        document.getElementById("screen").style.display = 'none';     
+        document.getElementById("screen").style.display = 'none';    
     });
     document.addEventListener('admob.ad.loadfail', function (data) {
-        document.getElementById("screen").style.display = 'none';     
+        document.getElementById("screen").style.display = 'none'; 
     });
     document.addEventListener('admob.ad.show', function (data) { 
         document.getElementById("screen").style.display = 'none';     
@@ -54,23 +54,6 @@ function registerAdEvents() {
     document.addEventListener('admob.ad.dismiss', function (data) {
     document.getElementById("screen").style.display = 'none';     
     });
-}
-
-function createSelectedBanner() {
-      AdMob.createBanner({adId:admobid.banner});
-}
-
-function loadInterstitial() {
-    if ((/(android|windows phone)/i.test(navigator.userAgent))) {
-        AdMob.prepareInterstitial({ adId: admobid.interstitial, isTesting: false, autoShow: false });
-        //document.getElementById("screen").style.display = 'none';     
-    } else if ((/(ipad|iphone|ipod)/i.test(navigator.userAgent))) {
-        AdMob.prepareInterstitial({ adId: admobid.interstitial, isTesting: false, autoShow: false });
-        //document.getElementById("screen").style.display = 'none';     
-    } else
-    {
-        document.getElementById("screen").style.display = 'none';     
-    }
 }
 
 function checkFirstUse()

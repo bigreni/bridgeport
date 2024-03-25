@@ -54,7 +54,7 @@
         <preference name="AndroidWindowSplashScreenAnimatedIcon" value="res/screen/android/screen-all.png" />
         <preference name="AndroidWindowSplashScreenAnimationDuration" value="1"/>
         <preference name="ADMOB_ANDROID_APP_ID" default="ca-app-pub-9249695405712287~3054928351"/>
-        <preference name="PLAY_SERVICES_VERSION" default="20.5.0"/>
+        <preference name="PLAY_SERVICES_VERSION" default="22.6.0"/>
         <edit-config file="AndroidManifest.xml" mode="merge" target="/manifest">
             <uses-permission android:name="com.google.android.gms.permission.AD_ID"/>
             <uses-permission android:name="com.android.vending.BILLING"/>
