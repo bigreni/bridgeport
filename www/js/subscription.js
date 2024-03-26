@@ -6,13 +6,13 @@ function loadProducts()
     refreshUI();
     store.register([{
       type: ProductType.PAID_SUBSCRIPTION,
-      id: 'proVersion',
-      platform: Platform.TEST,
+      id: 'proversion',
+      platform: Platform.GOOGLE_PLAY,
     }]);
     store.when()
       .productUpdated(refreshUI)
       .approved(finishPurchase);
-    store.initialize([Platform.TEST]);
+    store.initialize([Platform.GOOGLE_PLAY]);
 }
 
 function finishPurchase(transaction) {
@@ -23,7 +23,7 @@ function finishPurchase(transaction) {
 
   function refreshUI() {
     const {store, ProductType, Platform} = CdvPurchase;
-    myProduct = store.get('proVersion', Platform.TEST);
+    myProduct = store.get('proversion', Platform.TEST);
     const myTransaction = store.findInLocalReceipts(myProduct);
     const button = '<button onclick="myProduct.getOffer().order()">Remove Ads for ' +  myProduct.pricing.price +' per month</button>';
   
