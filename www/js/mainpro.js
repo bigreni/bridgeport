@@ -61,7 +61,7 @@ function checkFirstUse()
     TransitMaster.StopTimes({arrivals: true, headingLabel: "Arrival"});
     initApp();
     checkPermissions();
-    loadProducts();
+    //loadProducts();
     askRating();
     //document.getElementById("screen").style.display = 'none';     
 }
@@ -223,8 +223,8 @@ var newFave = $('#MainMobileContent_routeList option:selected').val() + ">" + $(
 
 function proSubscription()
 {
-    //window.location = "Subscription.html";
-    myProduct.getOffer().order();
+    window.location = "Subscription.html";
+    //myProduct.getOffer().order();
 }
 
 function showAd()
