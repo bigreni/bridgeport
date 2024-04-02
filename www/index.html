@@ -93,7 +93,7 @@
 					<td><div class="wait"><img id="stopWait" class="hidden wait" src="img/circle.gif" alt="Please wait"/></div></td>
 				</tr>
 			</table>
-            <h4 style="text-align:center;"><button id="btnSubscribe" onclick="proSubscription();" style="border:none; background-color:green; color:black;">&#x271A; Remove Ads</button></h4>
+            <h4 style="text-align:center;"><button id="btnSubscribe" onclick="proSubscription();" class="premium">Remove Ads</button></h4>
 
 		</div>
 
@@ -105,7 +105,7 @@
 <script id="stopTemplate" type="text/x-jquery-tmpl">
 		<div id="resultBox" class="resultBox">
 			<h2>{{:heading}}</h2>
-            <h2 style="text-align:center;"><button onclick="saveFavorites();" style="border:none; background-color:green; color:black;">&#x271A; Add to favorites</button></h2>
+            <h2 style="text-align:center;"><button onclick="saveFavorites();" class="favorites">&#x271A; Add to favorites</button></h2>
             <span id="message"></span>
 			<table>
 				{{for stops[0].crossings}}
