@@ -211,6 +211,18 @@ select.seleccion
 	margin-bottom : 10px;
 }
 
+.favorites{
+    border:none; 
+    background-color:green; 
+    color:black;
+}
+
+.premium{
+    border:none; 
+    background-color:green; 
+    color:black;
+}
+
 /*select#MainMobileContent_stopList
 {
     -webkit-appearance: none;
