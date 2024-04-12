@@ -5,26 +5,14 @@ function onLoad() {
         notFirstUse();
     }
 }
-var admobid = {};
-if (/(android)/i.test(navigator.userAgent)) {
-    admobid = { // for Android
-        banner: 'ca-app-pub-1683858134373419/7790106682',
-        interstitial:'ca-app-pub-9249695405712287/7485127953'
-    };
-} else if(/(ipod|iphone|ipad)/i.test(navigator.userAgent)) { // for ios
-admobid = {
-  banner: 'ca-app-pub-1683858134373419/7790106682', // or DFP format "/6253334/dfp_example_ad"
-  interstitial: 'ca-app-pub-9249695405712287/5792154750'
-};
-}
 
 function initApp() {
     if (/(android)/i.test(navigator.userAgent)){
         interstitial = new admob.InterstitialAd({
             //dev
-            //adUnitId: 'ca-app-pub-3940256099942544/1033173712'
+            adUnitId: 'ca-app-pub-3940256099942544/1033173712'
             //prod
-            adUnitId: 'ca-app-pub-9249695405712287/7485127953'
+            //adUnitId: 'ca-app-pub-9249695405712287/7485127953'
           });
         }
         else if(/(ipod|iphone|ipad)/i.test(navigator.userAgent) || (navigator.userAgent.includes("Mac") && "ontouchend" in document)) {
@@ -60,6 +48,7 @@ function checkFirstUse()
 {
     TransitMaster.StopTimes({arrivals: true, headingLabel: "Arrival"});
     initApp();
+    checkSubscription();
     checkPermissions();
     //loadProducts();
     askRating();
@@ -139,6 +128,43 @@ var newFave = $('#MainMobileContent_routeList option:selected').val() + ">" + $(
     $("#message").text('Stop added to favorites!!');
 }
 
+function checkSubscription()
+{
+    var pro = localStorage.getItem("proVersion");
+    if(pro!=null)
+    {
+        var productId = localStorage.getItem("productId");
+        CdvPurchase.store.register([{
+            type: CdvPurchase.ProductType.PAID_SUBSCRIPTION,
+            id: 'proversion',
+            platform: CdvPurchase.Platform.GOOGLE_PLAY,
+          },
+          {
+            type: CdvPurchase.ProductType.PAID_SUBSCRIPTION,
+            id: 'pro_biannual',
+            platform: CdvPurchase.Platform.GOOGLE_PLAY,
+          },
+          {
+            type: CdvPurchase.ProductType.PAID_SUBSCRIPTION,
+            id: 'pro_annual',
+            platform: CdvPurchase.Platform.GOOGLE_PLAY,
+          }]); 
+          
+        //   CdvPurchase.store.initialize([CdvPurchase.Platform.TEST]);
+          CdvPurchase.store.initialize([CdvPurchase.Platform.GOOGLE_PLAY]);
+        const product = CdvPurchase.store.get(productId, CdvPurchase.Platform.GOOGLE_PLAY);
+        localStorage.proVersion = 0;
+        if(product!=null)
+        {
+            if(product.owned)
+            {
+                localStorage.proVersion = 1;
+                localStorage.productId = productId;
+            }
+        }
+    }
+}
+
 function proSubscription()
 {
     window.location = "Subscription.html";
@@ -147,11 +173,15 @@ function proSubscription()
 
 function showAd()
 {
-    document.getElementById("screen").style.display = 'block';     
-    if ((/(ipad|iphone|ipod|android|windows phone)/i.test(navigator.userAgent)) || (navigator.userAgent.includes("Mac") && "ontouchend" in document)) {
-        interstitial.show();
+    var owned = localStorage.getItem("proVersion");
+    if(owned==null || owned == 0)
+    {
+        document.getElementById("screen").style.display = 'block';     
+        if ((/(ipad|iphone|ipod|android|windows phone)/i.test(navigator.userAgent)) || (navigator.userAgent.includes("Mac") && "ontouchend" in document)) {
+            interstitial.show();
+        }
+        document.getElementById("screen").style.display = 'none'; 
     }
-    document.getElementById("screen").style.display = 'none'; 
 }
 
 var	TransitMaster =	TransitMaster || {};

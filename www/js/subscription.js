@@ -1,4 +1,6 @@
 var products = ["proversion", "pro_biannual", "pro_annual"];
+var owned = localStorage.getItem("proVersion");
+var product = localStorage.getItem("proProduct");
 
 function loadProducts()
 {
@@ -31,17 +33,19 @@ function loadProducts()
 
 function onProductUpdated() {
     // const product = CdvPurchase.store.get('test-subscription', CdvPurchase.Platform.TEST);
-    //const product = CdvPurchase.store.get('proversion', CdvPurchase.Platform.GOOGLE_PLAY);
-     //alert(product.title);
-     //alert(product.pricing.price);
-    //document.getElementById("btnSubscribe").innerText= "Remove Ads - " + product.pricing.price + "/mo";
-    document.getElementById("plans").innerHTML = "";
+     document.getElementById("plans").innerHTML = "";
     var text = '';
+    localStorage.proVersion = 0;
     for (i = 0; i < products.length; i++) {
         const product = CdvPurchase.store.get(products[i], CdvPurchase.Platform.GOOGLE_PLAY);
          if(product != null)
         {
-            text += '<h4 style="text-align:center;"><button onclick=buy("' + product.id + '"); style="border:none; background-color:green; color:black;">' + product.title + ' - ' + product.pricing.price + '</button></h4>';
+            if(isProductOwned(product))
+            {
+                localStorage.proVersion = 1;
+                localStorage.productId = product.id;
+            }
+            text += '<h4 style="text-align:center;"><button onclick=buy("' + product.id + '"); class="premium">' + product.title + ' - ' + product.pricing.price + '</button></h4>';
             // alert(text);
         }
     }
@@ -50,9 +54,15 @@ function onProductUpdated() {
 
   function onTransactionApproved(transaction)
   {
-    alert('Thank you for supporting us. Bye ads!');
-    localStorage.proVersion = 1;
-    transaction.finish();
+    document.getElementById("plans").innerHTML = "";
+    if(owned == null || owned == 0)
+    {
+        var text = '<label>Thank you for subscribing to our app and supporting us.</label><br>'
+        $("#plans").append(text);
+        localStorage.proVersion = 1;
+        transaction.finish();
+        window.location = "index.html";
+    }
   }
 
   function buy(id) {
@@ -63,9 +73,13 @@ function onProductUpdated() {
       offer.order();
   }
 
+  function isProductOwned(product)
+  {
+    return product.owned;
+  }
+
   function loadPlans()
   {
-    alert(products.length);
     var text = '';
     for (i = 0; i < products.length; i++) {
         alert(products[i]);
@@ -73,7 +87,6 @@ function onProductUpdated() {
          if(product != null)
         {
             text += '<h4 style="text-align:center;"><button onclick="buy();" style="border:none; background-color:green; color:black;">' + product.title + ' - ' + product.pricing.price + '</button></h4>';
-            alert(text);
         }
     }
 
