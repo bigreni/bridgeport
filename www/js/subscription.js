@@ -1,6 +1,7 @@
 var products = ["proversion", "pro_biannual", "pro_annual"];
 var owned = localStorage.getItem("proVersion");
 var product = localStorage.getItem("proProduct");
+var platformType;
 
 function loadProducts()
 {
@@ -9,35 +10,45 @@ function loadProducts()
     //     id: 'test-subscription',
     //     platform: CdvPurchase.Platform.TEST,
     //   }]);
-      CdvPurchase.store.register([{
+ 
+    if (/(android)/i.test(navigator.userAgent)){
+        platformType = CdvPurchase.Platform.GOOGLE_PLAY;
+    }
+    else if(/(ipod|iphone|ipad)/i.test(navigator.userAgent) || (navigator.userAgent.includes("Mac") && "ontouchend" in document)) {
+        platformType = CdvPurchase.Platform.APPLE_APPSTORE;
+    }
+    else{
+        platformType = CdvPurchase.Platform.TEST;
+    }
+    alert(platformType);
+    CdvPurchase.store.register([{
         type: CdvPurchase.ProductType.PAID_SUBSCRIPTION,
         id: 'proversion',
-        platform: CdvPurchase.Platform.GOOGLE_PLAY,
-      },
-      {
+        platform: platformType,
+        },
+        {
         type: CdvPurchase.ProductType.PAID_SUBSCRIPTION,
         id: 'pro_biannual',
-        platform: CdvPurchase.Platform.GOOGLE_PLAY,
-      },
-      {
+        platform: platformType,
+        },
+        {
         type: CdvPurchase.ProductType.PAID_SUBSCRIPTION,
         id: 'pro_annual',
-        platform: CdvPurchase.Platform.GOOGLE_PLAY,
-      }]); 
-      
-      CdvPurchase.store.when().productUpdated(onProductUpdated);
-      CdvPurchase.store.when().approved(onTransactionApproved);
+        platform: platformType,
+        }]); 
+        
+        CdvPurchase.store.when().productUpdated(onProductUpdated);
+        CdvPurchase.store.when().approved(onTransactionApproved);
     //   CdvPurchase.store.initialize([CdvPurchase.Platform.TEST]);
-      CdvPurchase.store.initialize([CdvPurchase.Platform.GOOGLE_PLAY]);
+        CdvPurchase.store.initialize([platformType]);
     }
 
 function onProductUpdated() {
     // const product = CdvPurchase.store.get('test-subscription', CdvPurchase.Platform.TEST);
      document.getElementById("plans").innerHTML = "";
     var text = '';
-    localStorage.proVersion = 0;
     for (i = 0; i < products.length; i++) {
-        const product = CdvPurchase.store.get(products[i], CdvPurchase.Platform.GOOGLE_PLAY);
+        const product = CdvPurchase.store.get(products[i], platformType);
          if(product != null)
         {
             if(isProductOwned(product))
@@ -60,14 +71,15 @@ function onProductUpdated() {
         var text = '<label>Thank you for subscribing to our app and supporting us.</label><br>'
         $("#plans").append(text);
         localStorage.proVersion = 1;
+        localStorage.productId = transaction.products[0].id;
         transaction.finish();
-        window.location = "index.html";
+        //window.location = "index.html";
     }
   }
 
   function buy(id) {
     // alert(id);
-    const product = CdvPurchase.store.get(id, CdvPurchase.Platform.GOOGLE_PLAY);
+    const product = CdvPurchase.store.get(id, platformType);
     const offer = product.getOffer();
     if (offer)
       offer.order();
@@ -76,19 +88,4 @@ function onProductUpdated() {
   function isProductOwned(product)
   {
     return product.owned;
-  }
-
-  function loadPlans()
-  {
-    var text = '';
-    for (i = 0; i < products.length; i++) {
-        alert(products[i]);
-        const product = CdvPurchase.store.get(products[i], CdvPurchase.Platform.GOOGLE_PLAY);
-         if(product != null)
-        {
-            text += '<h4 style="text-align:center;"><button onclick="buy();" style="border:none; background-color:green; color:black;">' + product.title + ' - ' + product.pricing.price + '</button></h4>';
-        }
-    }
-
-    $("#plans").append(text);
   }

@@ -128,39 +128,64 @@ var newFave = $('#MainMobileContent_routeList option:selected').val() + ">" + $(
     $("#message").text('Stop added to favorites!!');
 }
 
+var platformType;
+
 function checkSubscription()
 {
+    if (/(android)/i.test(navigator.userAgent)){
+        platformType = CdvPurchase.Platform.GOOGLE_PLAY;
+    }
+    else if(/(ipod|iphone|ipad)/i.test(navigator.userAgent) || (navigator.userAgent.includes("Mac") && "ontouchend" in document)) {
+        platformType = CdvPurchase.Platform.APPLE_APPSTORE;
+    }
+    else{
+        platformType = CdvPurchase.Platform.TEST;
+    }
     var pro = localStorage.getItem("proVersion");
+    alert(pro);
     if(pro!=null)
     {
-        var productId = localStorage.getItem("productId");
         CdvPurchase.store.register([{
             type: CdvPurchase.ProductType.PAID_SUBSCRIPTION,
             id: 'proversion',
-            platform: CdvPurchase.Platform.GOOGLE_PLAY,
+            platform: platformType,
           },
           {
             type: CdvPurchase.ProductType.PAID_SUBSCRIPTION,
             id: 'pro_biannual',
-            platform: CdvPurchase.Platform.GOOGLE_PLAY,
+            platform: platformType,
           },
           {
             type: CdvPurchase.ProductType.PAID_SUBSCRIPTION,
             id: 'pro_annual',
-            platform: CdvPurchase.Platform.GOOGLE_PLAY,
+            platform: platformType,
           }]); 
           
         //   CdvPurchase.store.initialize([CdvPurchase.Platform.TEST]);
-          CdvPurchase.store.initialize([CdvPurchase.Platform.GOOGLE_PLAY]);
-        const product = CdvPurchase.store.get(productId, CdvPurchase.Platform.GOOGLE_PLAY);
-        localStorage.proVersion = 0;
-        if(product!=null)
+          CdvPurchase.store.initialize([platformType]);
+          CdvPurchase.store.when().productUpdated(onProductUpdated);
+    }
+}
+
+function onProductUpdated()
+{
+    var productId = localStorage.getItem("productId");
+    alert("ProductID: " + productId);
+    const product = CdvPurchase.store.get(productId, platformType);
+    alert("product: " + product);
+    if(product!=null)
+    {
+        if(product.owned)
         {
-            if(product.owned)
-            {
-                localStorage.proVersion = 1;
-                localStorage.productId = productId;
-            }
+            alert("setting pro");
+            localStorage.proVersion = 1;
+            localStorage.productId = productId;
+        }
+        else
+        {
+            alert("not pro");
+            localStorage.proVersion = 0;
+            localStorage.productId = "";
         }
     }
 }
@@ -174,6 +199,7 @@ function proSubscription()
 function showAd()
 {
     var owned = localStorage.getItem("proVersion");
+    alert("showAd " + owned);
     if(owned==null || owned == 0)
     {
         document.getElementById("screen").style.display = 'block';     
