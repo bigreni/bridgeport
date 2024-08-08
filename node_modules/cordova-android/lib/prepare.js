@@ -110,7 +110,10 @@ function getUserGradleConfig (configXml) {
         { xmlKey: 'AndroidXWebKitVersion', gradleKey: 'ANDROIDX_WEBKIT_VERSION', type: String },
         { xmlKey: 'GradlePluginGoogleServicesVersion', gradleKey: 'GRADLE_PLUGIN_GOOGLE_SERVICES_VERSION', type: String },
         { xmlKey: 'GradlePluginGoogleServicesEnabled', gradleKey: 'IS_GRADLE_PLUGIN_GOOGLE_SERVICES_ENABLED', type: Boolean },
-        { xmlKey: 'GradlePluginKotlinEnabled', gradleKey: 'IS_GRADLE_PLUGIN_KOTLIN_ENABLED', type: Boolean }
+        { xmlKey: 'GradlePluginKotlinEnabled', gradleKey: 'IS_GRADLE_PLUGIN_KOTLIN_ENABLED', type: Boolean },
+        { xmlKey: 'AndroidJavaSourceCompatibility', gradleKey: 'JAVA_SOURCE_COMPATIBILITY', type: Number },
+        { xmlKey: 'AndroidJavaTargetCompatibility', gradleKey: 'JAVA_TARGET_COMPATIBILITY', type: Number },
+        { xmlKey: 'AndroidKotlinJVMTarget', gradleKey: 'KOTLIN_JVM_TARGET', type: String }
     ];
 
     return configXmlToGradleMapping.reduce((config, mapping) => {
@@ -378,10 +381,24 @@ function updateProjectSplashScreen (platformConfig, locations) {
     const themes = xmlHelpers.parseElementtreeSync(locations.themes);
     const splashScreenTheme = themes.find('style[@name="Theme.App.SplashScreen"]');
 
+    let splashBg = platformConfig.getPreference('AndroidWindowSplashScreenBackground', this.platform);
+    if (!splashBg) {
+        splashBg = platformConfig.getPreference('SplashScreenBackgroundColor', this.platform);
+    }
+    if (!splashBg) {
+        splashBg = platformConfig.getPreference('BackgroundColor', this.platform);
+    }
+
+    // use the user defined value for "colors.xml"
+    updateProjectSplashScreenBackgroundColor(splashBg, locations);
+
+    // force the themes value to `@color/cdv_splashscreen_background`
+    const splashBgNode = splashScreenTheme.find('item[@name="windowSplashScreenBackground"]');
+    splashBgNode.text = '@color/cdv_splashscreen_background';
+
     [
         'windowSplashScreenAnimatedIcon',
         'windowSplashScreenAnimationDuration',
-        'windowSplashScreenBackground',
         'android:windowSplashScreenBrandingImage',
         'windowSplashScreenIconBackgroundColor',
         'postSplashScreenTheme'
@@ -392,14 +409,6 @@ function updateProjectSplashScreen (platformConfig, locations) {
         let themeTargetNode = splashScreenTheme.find(`item[@name="${themeKey}"]`);
 
         switch (themeKey) {
-        case 'windowSplashScreenBackground':
-            // use the user defined value for "colors.xml"
-            updateProjectSplashScreenBackgroundColor(cdvConfigPrefValue, locations);
-
-            // force the themes value to `@color/cdv_splashscreen_background`
-            themeTargetNode.text = '@color/cdv_splashscreen_background';
-            break;
-
         case 'windowSplashScreenAnimatedIcon':
             // handle here the cases of "png" vs "xml" (drawable)
             // If "png":

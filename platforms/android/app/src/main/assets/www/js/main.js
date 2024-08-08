@@ -112,20 +112,19 @@ function checkPermissions(){
 
 function askRating()
 {
-    const appRatePlugin = AppRate;
-    appRatePlugin.setPreferences({
-        reviewType: {
-            ios: 'AppStoreReview',
-            android: 'InAppBrowser'
-            },
-  useLanguage:  'en',
-  usesUntilPrompt: 10,
-  promptAgainForEachNewVersion: true,
+cordova.plugins.AppRate.setPreferences = {
+reviewType: {
+    ios: 'AppStoreReview',
+    android: 'InAppBrowser'
+    },
+    useLanguage:  'en',
+    usesUntilPrompt: 10,
+    promptAgainForEachNewVersion: true,
     storeAppURL: {
                 ios: '1227308869',
                 android: 'market://details?id=com.bridgeport.free'
                }
-});
+};
  
 AppRate.promptForRating(false);
 }
