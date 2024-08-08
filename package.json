@@ -25,13 +25,13 @@
       }
     },
     "platforms": [
-      "ios",
-      "android"
+      "android",
+      "ios"
     ]
   },
   "devDependencies": {
     "cordova-android": "^13.0.0",
-    "cordova-ios": "^7.1.0",
+    "cordova-ios": "^7.1.1",
     "cordova-plugin-idfa": "^2.1.0",
     "cordova-plugin-inappbrowser": "^5.0.0",
     "cordova-plugin-purchase": "^13.10.1",

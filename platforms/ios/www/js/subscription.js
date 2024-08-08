@@ -1,6 +1,6 @@
 var products = ["proversion", "pro_biannual", "pro_annual"];
 var owned = localStorage.getItem("proVersion");
-var product = localStorage.getItem("proProduct");
+var productId = localStorage.getItem("productId");
 var platformType;
 
 function loadProducts()
@@ -20,7 +20,6 @@ function loadProducts()
     else{
         platformType = CdvPurchase.Platform.TEST;
     }
-    alert(platformType);
     CdvPurchase.store.register([{
         type: CdvPurchase.ProductType.PAID_SUBSCRIPTION,
         id: 'proversion',
@@ -36,7 +35,7 @@ function loadProducts()
         id: 'pro_annual',
         platform: platformType,
         }]); 
-        
+        CdvPurchase.store.restorePurchases();
         CdvPurchase.store.when().productUpdated(onProductUpdated);
         CdvPurchase.store.when().approved(onTransactionApproved);
     //   CdvPurchase.store.initialize([CdvPurchase.Platform.TEST]);
@@ -45,7 +44,7 @@ function loadProducts()
 
 function onProductUpdated() {
     // const product = CdvPurchase.store.get('test-subscription', CdvPurchase.Platform.TEST);
-     document.getElementById("plans").innerHTML = "";
+    document.getElementById("plans").innerHTML = "";
     var text = '';
     for (i = 0; i < products.length; i++) {
         const product = CdvPurchase.store.get(products[i], platformType);
@@ -56,25 +55,31 @@ function onProductUpdated() {
                 localStorage.proVersion = 1;
                 localStorage.productId = product.id;
             }
-            text += '<h4 style="text-align:center;"><button onclick=buy("' + product.id + '"); class="premium">' + product.title + ' - ' + product.pricing.price + '</button></h4>';
+                text += '<h4 style="text-align:center;"><button onclick=buy("' + product.id + '"); class="premium">' + product.title + ' - ' + product.pricing.price + '</button></h4>';
             // alert(text);
         }
     }
+    //if(productId != null && owned == 1)
+    //    text += '<p> You are currently subscribed to the ' + productId + ' plan. Thank you for your support.</p>';
     $("#plans").append(text);
 }
 
   function onTransactionApproved(transaction)
   {
-    document.getElementById("plans").innerHTML = "";
-    if(owned == null || owned == 0)
+    //document.getElementById("plans").innerHTML = "";
+    if(transaction.products[0].id != 'com.bridgeport.free')
     {
-        var text = '<label>Thank you for subscribing to our app and supporting us.</label><br>'
-        $("#plans").append(text);
-        localStorage.proVersion = 1;
-        localStorage.productId = transaction.products[0].id;
-        transaction.finish();
-        //window.location = "index.html";
+        if(owned == null || owned == 0)
+        {
+            var text = '<label>Thank you for subscribing to our app and supporting us.</label><br>'
+            $("#plans").append(text);
+            localStorage.proVersion = 1;
+            localStorage.productId = transaction.products[0].id;
+            transaction.finish();
+            //window.location = "index.html";
+        }
     }
+
   }
 
   function buy(id) {
