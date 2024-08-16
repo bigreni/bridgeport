@@ -284,12 +284,12 @@ var CdvPurchase;
          */
         debug(o) { log(this.store.verbosity, LogLevel.DEBUG, this.prefix, o); }
         /**
-         * Add warning logs on a console describing an exceptions.
+         * Add warning logs on a console describing an exception.
          *
          * This method is mostly used when executing user registered callbacks.
          *
          * @param context - a string describing why the method was called
-         * @param error - a javascript Error object thrown by a exception
+         * @param error - a javascript Error object thrown by an exception
          */
         logCallbackException(context, err) {
             this.warn("A callback in \'" + context + "\' failed with an exception.");
@@ -313,8 +313,8 @@ var CdvPurchase;
      *
      * @example
      * Logger.console = {
-     *   log: (message) => { remoteLog('LOG', message); }
-     *   warn: (message) => { remoteLog('WARN', message); }
+     *   log: (message) => { remoteLog('LOG', message); },
+     *   warn: (message) => { remoteLog('WARN', message); },
      *   error: (message) => { remoteLog('ERROR', message); }
      * }
      */
@@ -1233,15 +1233,17 @@ var CdvPurchase;
         Internal.ReceiptsMonitor = ReceiptsMonitor;
     })(Internal = CdvPurchase.Internal || (CdvPurchase.Internal = {}));
 })(CdvPurchase || (CdvPurchase = {}));
-/**
- * The platform doesn't send notifications when a subscription expires.
- *
- * However this is useful, so let's do just that.
- */
 var CdvPurchase;
 (function (CdvPurchase) {
     let Internal;
     (function (Internal) {
+        /**
+         * Send a notification when a subscription expires.
+         *
+         * The platform doesn't send notifications when a subscription expires.
+         *
+         * However this is useful, so let's do just that.
+         */
         class ExpiryMonitor {
             /** Track active local transactions */
             // activeTransactions: {
@@ -1347,7 +1349,7 @@ var CdvPurchase;
     /**
      * Current release number of the plugin.
      */
-    CdvPurchase.PLUGIN_VERSION = '13.10.1';
+    CdvPurchase.PLUGIN_VERSION = '13.11.1';
     /**
      * Entry class of the plugin.
      */
@@ -1905,7 +1907,7 @@ var CdvPurchase;
          * - on Android: `GOOGLE_PLAY`
          */
         defaultPlatform() {
-            switch (window.cordova.platformId) {
+            switch (CdvPurchase.Utils.platformId()) {
                 case 'android': return CdvPurchase.Platform.GOOGLE_PLAY;
                 case 'ios': return CdvPurchase.Platform.APPLE_APPSTORE;
                 default: return CdvPurchase.Platform.TEST;
@@ -1942,6 +1944,7 @@ if (window.cordova) {
 else {
     initCDVPurchase();
 }
+/** @private */
 function initCDVPurchase() {
     var _a;
     console.log('Create CdvPurchase...');
@@ -2451,6 +2454,8 @@ var CdvPurchase;
                 this.minTimeout = minTimeout;
                 this.maxTimeout = maxTimeout;
                 this.retryTimeout = minTimeout;
+                // From https://github.com/apache/cordova-plugin-network-information
+                // This event fires when an application goes online, and the device becomes connected to the Internet.
                 document.addEventListener("online", () => {
                     const a = this.retries;
                     this.retries = [];
@@ -2695,7 +2700,7 @@ var CdvPurchase;
             }
             /** Returns true on iOS, the only platform supported by this adapter */
             get isSupported() {
-                return window.cordova.platformId === 'ios';
+                return CdvPurchase.Utils.platformId() === 'ios';
             }
             upsertTransactionInProgress(productId, state) {
                 const transactionId = virtualTransactionId(productId);
@@ -4296,7 +4301,7 @@ var CdvPurchase;
                 }
                 /** Returns true on Android, the only platform supported by this Braintree bridge */
                 static isSupported() {
-                    return window.cordova.platformId === 'android';
+                    return CdvPurchase.Utils.platformId() === 'android';
                 }
                 isApplePaySupported() {
                     return __awaiter(this, void 0, void 0, function* () {
@@ -4462,7 +4467,7 @@ var CdvPurchase;
                 static isSupported(log) {
                     return new Promise(resolve => {
                         var _a;
-                        if (window.cordova.platformId !== 'ios') {
+                        if (CdvPurchase.Utils.platformId() !== 'ios') {
                             log.info('BraintreeApplePayPlugin is only available for ios.');
                             return resolve(false);
                         }
@@ -4585,7 +4590,7 @@ var CdvPurchase;
                     return window.CdvPurchaseBraintree;
                 }
                 static isSupported() {
-                    return window.cordova.platformId === 'ios';
+                    return CdvPurchase.Utils.platformId() === 'ios';
                 }
             }
             IosBridge.Bridge = Bridge;
@@ -4830,7 +4835,7 @@ var CdvPurchase;
             get receipts() { return this._receipts; }
             /** Returns true on Android, the only platform supported by this adapter */
             get isSupported() {
-                return window.cordova.platformId === 'android';
+                return CdvPurchase.Utils.platformId() === 'android';
             }
             initialize() {
                 return __awaiter(this, void 0, void 0, function* () {
@@ -5198,9 +5203,13 @@ var CdvPurchase;
 (function (CdvPurchase) {
     let GooglePlay;
     (function (GooglePlay) {
-        /** Replace SKU ProrationMode.
+        /**
+         * Replace SKU ProrationMode.
          *
-         * See https://developer.android.com/reference/com/android/billingclient/api/BillingFlowParams.ProrationMode */
+         * See https://developer.android.com/reference/com/android/billingclient/api/BillingFlowParams.ProrationMode
+         *
+         * @deprecated Use {@link ReplacementMode}
+         */
         let ProrationMode;
         (function (ProrationMode) {
             /** Replacement takes effect immediately, and the remaining time will be prorated and credited to the user. */
@@ -5214,6 +5223,24 @@ var CdvPurchase;
             /** Replacement takes effect immediately, and the user is charged full price of new plan and is given a full billing cycle of subscription, plus remaining prorated time from the old plan. */
             ProrationMode["IMMEDIATE_AND_CHARGE_FULL_PRICE"] = "IMMEDIATE_AND_CHARGE_FULL_PRICE";
         })(ProrationMode = GooglePlay.ProrationMode || (GooglePlay.ProrationMode = {}));
+        /**
+         * Supported replacement modes to replace an existing subscription with a new one.
+         *
+         * @see {@link https://developer.android.com/google/play/billing/subscriptions#replacement-modes}
+         */
+        let ReplacementMode;
+        (function (ReplacementMode) {
+            /** Replacement takes effect immediately, and the remaining time will be prorated and credited to the user. */
+            ReplacementMode["WITH_TIME_PRORATION"] = "IMMEDIATE_WITH_TIME_PRORATION";
+            /** Replacement takes effect immediately, and the billing cycle remains the same. */
+            ReplacementMode["CHARGE_PRORATED_PRICE"] = "IMMEDIATE_AND_CHARGE_PRORATED_PRICE";
+            /** Replacement takes effect immediately, and the new price will be charged on next recurrence time. */
+            ReplacementMode["WITHOUT_PRORATION"] = "IMMEDIATE_WITHOUT_PRORATION";
+            /** Replacement takes effect when the old plan expires, and the new price will be charged at the same time. */
+            ReplacementMode["DEFERRED"] = "DEFERRED";
+            /** Replacement takes effect immediately, and the user is charged full price of new plan and is given a full billing cycle of subscription, plus remaining prorated time from the old plan. */
+            ReplacementMode["CHARGE_FULL_PRICE"] = "IMMEDIATE_AND_CHARGE_FULL_PRICE";
+        })(ReplacementMode = GooglePlay.ReplacementMode || (GooglePlay.ReplacementMode = {}));
         let Bridge;
         (function (Bridge_2) {
             let log = function log(msg) {
@@ -6723,6 +6750,22 @@ var CdvPurchase;
 (function (CdvPurchase) {
     let Utils;
     (function (Utils) {
+        /** Returns an UUID v4. Uses `window.crypto` internally to generate random values. */
+        function platformId() {
+            var _a, _b, _c;
+            if ((_a = window.cordova) === null || _a === void 0 ? void 0 : _a.platformId)
+                return (_b = window.cordova) === null || _b === void 0 ? void 0 : _b.platformId;
+            if ((_c = window.Capacitor) === null || _c === void 0 ? void 0 : _c.getPlatform)
+                return window.Capacitor.getPlatform();
+            return 'web';
+        }
+        Utils.platformId = platformId;
+    })(Utils = CdvPurchase.Utils || (CdvPurchase.Utils = {}));
+})(CdvPurchase || (CdvPurchase = {}));
+var CdvPurchase;
+(function (CdvPurchase) {
+    let Utils;
+    (function (Utils) {
         /**
          * Return a safer version of a callback that runs inside a try/catch block.
          *
@@ -6745,6 +6788,9 @@ var CdvPurchase;
          * @param value - Value passed to the callback.
          */
         function safeCall(logger, className, callback, value, callbackName, reason) {
+            if (!callback) {
+                return; // cannot call an undefined callback.
+            }
             if (!callbackName) {
                 callbackName = callback.name || ('#' + Utils.md5(callback.toString()));
             }
@@ -6914,6 +6960,7 @@ var CdvPurchase;
             this.latestReceipt = response.latest_receipt;
             this.nativeTransactions = [response.transaction];
             this.warning = response.warning;
+            this.validationDate = response.date ? new Date(response.date) : new Date();
             Object.defineProperty(this, 'raw', { 'enumerable': false, get() { return response; } });
             Object.defineProperty(this, 'finish', { 'enumerable': false, get() { return () => decorator.finish(this); } });
         }

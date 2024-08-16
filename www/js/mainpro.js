@@ -10,9 +10,9 @@ function initApp() {
     if (/(android)/i.test(navigator.userAgent)){
         interstitial = new admob.InterstitialAd({
             //dev
-            adUnitId: 'ca-app-pub-3940256099942544/1033173712'
+            //adUnitId: 'ca-app-pub-3940256099942544/1033173712'
             //prod
-            //adUnitId: 'ca-app-pub-9249695405712287/7485127953'
+            adUnitId: 'ca-app-pub-9249695405712287/7485127953'
           });
         }
         else if(/(ipod|iphone|ipad)/i.test(navigator.userAgent) || (navigator.userAgent.includes("Mac") && "ontouchend" in document)) {
@@ -208,18 +208,18 @@ function onReceiptUpdated(receipt)
     //alert(receipt.transactions[0].products[0].id);
     //CdvPurchase.store.update();
     var owned = CdvPurchase.store.owned(productId, platformType);
-    alert("owned: " + owned)
+    //alert("owned: " + owned)
     //const product = CdvPurchase.store.get(productId, platformType);
     //alert("desc: " + + product.description + '- ID: ' + product.id + '- Platform: ' + product.platform + '- Owned:' + product.owned + '- Title:' + product.title);
     if(owned != null && owned)
     {
-        alert("setting pro");
+        //alert("setting pro");
         localStorage.proVersion = 1;
         localStorage.productId = productId;
     }
     else
     {
-        alert("not pro");
+        //alert("not pro");
         localStorage.proVersion = 0;
         //localStorage.productId = "";
     }
@@ -244,18 +244,18 @@ function onReceiptReady()
     //alert(receipt.transactions[0].products[0].id);
     //CdvPurchase.store.update();
     var owned = CdvPurchase.store.owned(productId, platformType);
-    alert("owned: " + owned)
+    //alert("owned: " + owned)
     //const product = CdvPurchase.store.get(productId, platformType);
     //alert("desc: " + + product.description + '- ID: ' + product.id + '- Platform: ' + product.platform + '- Owned:' + product.owned + '- Title:' + product.title);
     if(owned != null && owned)
     {
-        alert("setting pro");
+        //alert("setting pro");
         localStorage.proVersion = 1;
         localStorage.productId = productId;
     }
     else
     {
-        alert("not pro");
+        //alert("not pro");
         localStorage.proVersion = 0;
         //localStorage.productId = "";
     }
@@ -270,7 +270,7 @@ function proSubscription()
 function showAd()
 {
     var owned = localStorage.getItem("proVersion");
-    alert("showAd " + owned);
+    //alert("showAd " + owned);
     if(owned==null || owned == 0)
     {
         document.getElementById("screen").style.display = 'block';     

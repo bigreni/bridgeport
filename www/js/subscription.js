@@ -58,7 +58,8 @@ function onProductUpdated() {
                 // text += '<h4 style="text-align:center;"><button onclick=buy("' + product.id + '"); class="premium">' + product.title + ' - ' + product.pricing.price + '</button></h4>';
             // alert(text);
             text += '<ul class="pricingTable-firstTable"><li class="pricingTable-firstTable_table"><h1 class="pricingTable-firstTable_table__header">' + product.title + '</h1>';
-            text += '<p class="pricingTable-firstTable_table__pricing">$ ' + product.pricing.price +'</p>';
+            text += '<p class="pricingTable-firstTable_table__pricing">' + product.pricing.price +'</p>';
+            text += '<p class="pricingTable-firstTable_table__pricing">' + product.description +'</p>';
             text += '<button class="pricingTable-firstTable_table__getstart" onclick=buy("' + product.id + '");>Subscribe</button>';
             text += '</ul>';      
         }

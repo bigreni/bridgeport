@@ -13,20 +13,13 @@
       "DISABLESDKCRASHREPORTING": "false",
       "PACKAGE_NAME": "com.bridgeport.free"
     },
-    "cordova-plugin-apprate": {
-      "PACKAGE_NAME": "com.bridgeport.free"
-    },
-    "cordova-plugin-device": {
-      "PACKAGE_NAME": "com.bridgeport.free"
-    },
     "cordova-plugin-dialogs": {
       "PACKAGE_NAME": "com.bridgeport.free"
     },
-    "cordova-plugin-geolocation": {
-      "GPS_REQUIRED": "true",
+    "cordova-plugin-idfa": {
       "PACKAGE_NAME": "com.bridgeport.free"
     },
-    "cordova-plugin-idfa": {
+    "cordova-plugin-apprate": {
       "PACKAGE_NAME": "com.bridgeport.free"
     },
     "cordova-plugin-inappbrowser": {
@@ -35,15 +28,22 @@
     "cordova-plugin-purchase": {
       "PACKAGE_NAME": "com.bridgeport.free"
     },
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "com.bridgeport.free"
+    },
+    "cordova-plugin-geolocation": {
+      "GPS_REQUIRED": "true",
+      "PACKAGE_NAME": "com.bridgeport.free"
+    },
     "cordova-plugin-wkwebview-file-xhr": {
       "PACKAGE_NAME": "com.bridgeport.free"
     }
   },
   "dependent_plugins": {
-    "cordova-plugin-nativestorage": {
+    "cordova-support-android-plugin": {
       "PACKAGE_NAME": "com.bridgeport.free"
     },
-    "cordova-support-android-plugin": {
+    "cordova-plugin-nativestorage": {
       "PACKAGE_NAME": "com.bridgeport.free"
     }
   }

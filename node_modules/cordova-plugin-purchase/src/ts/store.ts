@@ -32,7 +32,7 @@ namespace CdvPurchase {
     /**
      * Current release number of the plugin.
      */
-    export const PLUGIN_VERSION = '13.10.1';
+    export const PLUGIN_VERSION = '13.11.1';
 
     /**
      * Entry class of the plugin.
@@ -676,7 +676,7 @@ namespace CdvPurchase {
          * - on Android: `GOOGLE_PLAY`
          */
         defaultPlatform(): Platform {
-            switch (window.cordova.platformId) {
+            switch (Utils.platformId()) {
                 case 'android': return Platform.GOOGLE_PLAY;
                 case 'ios': return Platform.APPLE_APPSTORE;
                 default: return Platform.TEST;
@@ -736,6 +736,8 @@ if (window.cordova) {
 else {
     initCDVPurchase();
 }
+
+/** @private */
 function initCDVPurchase() {
     console.log('Create CdvPurchase...');
     const oldStore = window.CdvPurchase?.store;

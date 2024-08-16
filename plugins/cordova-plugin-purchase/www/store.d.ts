@@ -189,12 +189,12 @@ declare namespace CdvPurchase {
          */
         debug(o: any): void;
         /**
-         * Add warning logs on a console describing an exceptions.
+         * Add warning logs on a console describing an exception.
          *
          * This method is mostly used when executing user registered callbacks.
          *
          * @param context - a string describing why the method was called
-         * @param error - a javascript Error object thrown by a exception
+         * @param error - a javascript Error object thrown by an exception
          */
         logCallbackException(context: string, err: Error | string): void;
         /**
@@ -204,8 +204,8 @@ declare namespace CdvPurchase {
          *
          * @example
          * Logger.console = {
-         *   log: (message) => { remoteLog('LOG', message); }
-         *   warn: (message) => { remoteLog('WARN', message); }
+         *   log: (message) => { remoteLog('LOG', message); },
+         *   warn: (message) => { remoteLog('WARN', message); },
          *   error: (message) => { remoteLog('ERROR', message); }
          * }
          */
@@ -678,11 +678,6 @@ declare namespace CdvPurchase {
         }
     }
 }
-/**
- * The platform doesn't send notifications when a subscription expires.
- *
- * However this is useful, so let's do just that.
- */
 declare namespace CdvPurchase {
     namespace Internal {
         /** Data and callbacks to interface with the ExpiryMonitor */
@@ -691,6 +686,13 @@ declare namespace CdvPurchase {
             /** Called when a verified purchase expires */
             onVerifiedPurchaseExpired(verifiedPurchase: VerifiedPurchase, receipt: VerifiedReceipt): void;
         }
+        /**
+         * Send a notification when a subscription expires.
+         *
+         * The platform doesn't send notifications when a subscription expires.
+         *
+         * However this is useful, so let's do just that.
+         */
         class ExpiryMonitor {
             /** Time between checks for newly expired subscriptions */
             static INTERVAL_MS: number;
@@ -741,7 +743,7 @@ declare namespace CdvPurchase {
     /**
      * Current release number of the plugin.
      */
-    const PLUGIN_VERSION = "13.10.1";
+    const PLUGIN_VERSION = "13.11.1";
     /**
      * Entry class of the plugin.
      */
@@ -1088,6 +1090,7 @@ declare namespace CdvPurchase {
      */
     namespace Internal { }
 }
+/** @private */
 declare function initCDVPurchase(): void;
 declare namespace CdvPurchase {
     /** Callback */
@@ -4289,9 +4292,13 @@ declare namespace CdvPurchase {
 }
 declare namespace CdvPurchase {
     namespace GooglePlay {
-        /** Replace SKU ProrationMode.
+        /**
+         * Replace SKU ProrationMode.
          *
-         * See https://developer.android.com/reference/com/android/billingclient/api/BillingFlowParams.ProrationMode */
+         * See https://developer.android.com/reference/com/android/billingclient/api/BillingFlowParams.ProrationMode
+         *
+         * @deprecated Use {@link ReplacementMode}
+         */
         enum ProrationMode {
             /** Replacement takes effect immediately, and the remaining time will be prorated and credited to the user. */
             IMMEDIATE_WITH_TIME_PRORATION = "IMMEDIATE_WITH_TIME_PRORATION",
@@ -4303,6 +4310,23 @@ declare namespace CdvPurchase {
             DEFERRED = "DEFERRED",
             /** Replacement takes effect immediately, and the user is charged full price of new plan and is given a full billing cycle of subscription, plus remaining prorated time from the old plan. */
             IMMEDIATE_AND_CHARGE_FULL_PRICE = "IMMEDIATE_AND_CHARGE_FULL_PRICE"
+        }
+        /**
+         * Supported replacement modes to replace an existing subscription with a new one.
+         *
+         * @see {@link https://developer.android.com/google/play/billing/subscriptions#replacement-modes}
+         */
+        enum ReplacementMode {
+            /** Replacement takes effect immediately, and the remaining time will be prorated and credited to the user. */
+            WITH_TIME_PRORATION = "IMMEDIATE_WITH_TIME_PRORATION",
+            /** Replacement takes effect immediately, and the billing cycle remains the same. */
+            CHARGE_PRORATED_PRICE = "IMMEDIATE_AND_CHARGE_PRORATED_PRICE",
+            /** Replacement takes effect immediately, and the new price will be charged on next recurrence time. */
+            WITHOUT_PRORATION = "IMMEDIATE_WITHOUT_PRORATION",
+            /** Replacement takes effect when the old plan expires, and the new price will be charged at the same time. */
+            DEFERRED = "DEFERRED",
+            /** Replacement takes effect immediately, and the user is charged full price of new plan and is given a full billing cycle of subscription, plus remaining prorated time from the old plan. */
+            CHARGE_FULL_PRICE = "IMMEDIATE_AND_CHARGE_FULL_PRICE"
         }
         interface AdditionalData {
             /** The GooglePlay offer token */
@@ -4323,8 +4347,14 @@ declare namespace CdvPurchase {
              * Use this method to send the user's profile identifier to Google.
              */
             profileId?: string;
-            /** See https://github.com/j3k0/cordova-plugin-purchase/blob/master/doc/api.md#storeorderproduct-additionaldata for details */
+            /**
+             * Same as replacementMode, for backward compatibility
+             *
+             * @deprecated Use {@link replacementMode} instead
+             */
             prorationMode?: ProrationMode;
+            /** See https://github.com/j3k0/cordova-plugin-purchase/blob/master/doc/api.md#storeorderproduct-additionaldata for details */
+            replacementMode?: ReplacementMode;
         }
         namespace Bridge {
             interface Options {
@@ -5355,6 +5385,13 @@ declare namespace CdvPurchase {
 }
 declare namespace CdvPurchase {
     namespace Utils {
+        type PlatformID = 'ios' | 'android' | 'web';
+        /** Returns an UUID v4. Uses `window.crypto` internally to generate random values. */
+        function platformId(): PlatformID;
+    }
+}
+declare namespace CdvPurchase {
+    namespace Utils {
         /**
          * Return a safer version of a callback that runs inside a try/catch block.
          *
@@ -5647,6 +5684,11 @@ declare namespace CdvPurchase {
                      *
                      * It might be present when the server had to fallback to a backup validation solution. */
                     warning?: string;
+                    /** Date and time the receipt was validated.
+                     *
+                     * It will provide the client with a more reliable clock time
+                     * than the user's device when needed. */
+                    date?: ISODate;
                 };
             }
             type NativeTransaction = ({
@@ -5724,6 +5766,8 @@ declare namespace CdvPurchase {
     class VerifiedReceipt {
         /** @internal */
         className: 'VerifiedReceipt';
+        /** Date and time the receipt was verified */
+        validationDate: Date;
         /** Platform this receipt originated from */
         get platform(): Platform;
         /** Source local receipt used for this validation */
