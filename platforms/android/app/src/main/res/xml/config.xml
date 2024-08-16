@@ -1,10 +1,31 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget android-versionCode="30010" id="com.bridgeport.free" version="3.0.2" versionCode="14" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget android-versionCode="30020" id="com.bridgeport.free" version="3.0.2" versionCode="14" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <feature name="AdMob">
         <param name="android-package" value="admob.plus.cordova.AdMob" />
     </feature>
     <feature name="Notification">
         <param name="android-package" value="org.apache.cordova.dialogs.Notification" />
+    </feature>
+    <feature name="NativeStorage">
+        <param name="android-package" value="NativeStorage" />
+    </feature>
+    <feature name="AppRate">
+        <param name="android-package" value="org.pushandplay.cordova.apprate.AppRate" />
+    </feature>
+    <feature name="Device">
+        <param name="android-package" value="org.apache.cordova.device.Device" />
+    </feature>
+    <feature name="Geolocation">
+        <param name="android-package" value="org.apache.cordova.geolocation.Geolocation" />
+    </feature>
+    <feature name="Idfa">
+        <param name="android-package" value="by.chemerisuk.cordova.advertising.IdfaPlugin" />
+    </feature>
+    <feature name="InAppBrowser">
+        <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
+    </feature>
+    <feature name="InAppBillingPlugin">
+        <param name="android-package" value="cc.fovea.PurchasePlugin" />
     </feature>
     <name>GBT Bus Tracker</name>
     <description>
@@ -35,7 +56,7 @@
     <allow-intent href="geo:*" />
     <icon src="icon.png" />
     <preference default="ca-app-pub-9249695405712287~3054928351" name="ADMOB_ANDROID_APP_ID" />
-    <preference default="22.6.0" name="PLAY_SERVICES_VERSION" />
+    <preference default="23.0.0" name="PLAY_SERVICES_VERSION" />
     <edit-config file="AndroidManifest.xml" mode="merge" target="/manifest">
         <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
         <uses-permission android:name="com.android.vending.BILLING" />
@@ -61,33 +82,12 @@
     <preference name="AutoHideSplashScreen" value="true" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="disable-cursor" value="false" />
-    <preference name="android-minSdkVersion" value="28" />
-    <preference name="android-targetSdkVersion" value="33" />
+    <preference name="android-minSdkVersion" value="30" />
+    <preference name="android-targetSdkVersion" value="34" />
     <preference name="android-installLocation" value="auto" />
     <preference name="StatusBarOverlaysWebView" value="false" />
     <preference name="AndroidInsecureFileModeEnabled" value="true" />
     <preference name="InterceptRemoteRequests" value="all" />
     <preference name="AndroidWindowSplashScreenAnimatedIcon" value="res/screen/android/screen-all.png" />
     <preference name="AndroidWindowSplashScreenAnimationDuration" value="1" />
-    <feature name="Idfa">
-        <param name="android-package" value="by.chemerisuk.cordova.advertising.IdfaPlugin" />
-    </feature>
-    <feature name="NativeStorage">
-        <param name="android-package" value="NativeStorage" />
-    </feature>
-    <feature name="AppRate">
-        <param name="android-package" value="org.pushandplay.cordova.apprate.AppRate" />
-    </feature>
-    <feature name="InAppBrowser">
-        <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
-    </feature>
-    <feature name="InAppBillingPlugin">
-        <param name="android-package" value="cc.fovea.PurchasePlugin" />
-    </feature>
-    <feature name="Device">
-        <param name="android-package" value="org.apache.cordova.device.Device" />
-    </feature>
-    <feature name="Geolocation">
-        <param name="android-package" value="org.apache.cordova.geolocation.Geolocation" />
-    </feature>
 </widget>

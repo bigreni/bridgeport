@@ -337,8 +337,8 @@ dependencies {
     // SUB-PROJECT DEPENDENCIES START
     implementation(project(path: ":CordovaLib"))
     implementation "com.google.android.gms:play-services-ads:22.6.0"
-    implementation "com.google.android.gms:play-services-ads-identifier:'16.+'"
     implementation "com.google.android.play:review:2.+"
+    implementation "com.google.android.gms:play-services-ads-identifier:'16.+'"
     implementation "com.android.billingclient:billing:7.0.0"
     // SUB-PROJECT DEPENDENCIES END
 }

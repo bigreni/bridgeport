@@ -12,15 +12,22 @@
       "PLAY_SERVICES_VERSION": "22.6.0",
       "PACKAGE_NAME": "com.bridgeport.free"
     },
+    "cordova-plugin-apprate": {
+      "PLAY_REVIEW_VERSION": "2.+",
+      "PACKAGE_NAME": "com.bridgeport.free"
+    },
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "com.bridgeport.free"
+    },
     "cordova-plugin-dialogs": {
+      "PACKAGE_NAME": "com.bridgeport.free"
+    },
+    "cordova-plugin-geolocation": {
+      "GPS_REQUIRED": "true",
       "PACKAGE_NAME": "com.bridgeport.free"
     },
     "cordova-plugin-idfa": {
       "ANDROID_PLAY_ADID_VERSION": "'16.+'",
-      "PACKAGE_NAME": "com.bridgeport.free"
-    },
-    "cordova-plugin-apprate": {
-      "PLAY_REVIEW_VERSION": "2.+",
       "PACKAGE_NAME": "com.bridgeport.free"
     },
     "cordova-plugin-inappbrowser": {
@@ -29,22 +36,15 @@
     "cordova-plugin-purchase": {
       "PACKAGE_NAME": "com.bridgeport.free"
     },
-    "cordova-plugin-device": {
-      "PACKAGE_NAME": "com.bridgeport.free"
-    },
-    "cordova-plugin-geolocation": {
-      "GPS_REQUIRED": "true",
-      "PACKAGE_NAME": "com.bridgeport.free"
-    },
     "cordova-plugin-wkwebview-file-xhr": {
       "PACKAGE_NAME": "com.bridgeport.free"
     }
   },
   "dependent_plugins": {
-    "cordova-support-android-plugin": {
+    "cordova-plugin-nativestorage": {
       "PACKAGE_NAME": "com.bridgeport.free"
     },
-    "cordova-plugin-nativestorage": {
+    "cordova-support-android-plugin": {
       "PACKAGE_NAME": "com.bridgeport.free"
     }
   }

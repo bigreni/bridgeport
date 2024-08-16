@@ -16,7 +16,7 @@
               "oldAttrib": {
                 "android:hardwareAccelerated": "true",
                 "android:name": "com.google.android.gms.permission.AD_ID",
-                "android:versionCode": "30010",
+                "android:versionCode": "30020",
                 "android:versionName": "3.0.2",
                 "xmlns:android": "http://schemas.android.com/apk/res/android"
               }
@@ -29,7 +29,7 @@
               "oldAttrib": {
                 "android:hardwareAccelerated": "true",
                 "android:name": "com.android.vending.BILLING",
-                "android:versionCode": "30010",
+                "android:versionCode": "30020",
                 "android:versionName": "3.0.2",
                 "xmlns:android": "http://schemas.android.com/apk/res/android"
               }
@@ -76,18 +76,6 @@
           ],
           "/*": [
             {
-              "xml": "<uses-permission android:name=\"android.permission.INTERNET\" />",
-              "count": 1
-            },
-            {
-              "xml": "<uses-permission android:name=\"com.google.android.gms.permission.AD_ID\" />",
-              "count": 1
-            },
-            {
-              "xml": "<uses-permission android:name=\"com.android.vending.BILLING\" />",
-              "count": 1
-            },
-            {
               "xml": "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\" />",
               "count": 1
             },
@@ -97,6 +85,18 @@
             },
             {
               "xml": "<uses-feature android:name=\"android.hardware.location.gps\" android:required=\"true\" />",
+              "count": 1
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.INTERNET\" />",
+              "count": 1
+            },
+            {
+              "xml": "<uses-permission android:name=\"com.google.android.gms.permission.AD_ID\" />",
+              "count": 1
+            },
+            {
+              "xml": "<uses-permission android:name=\"com.android.vending.BILLING\" />",
               "count": 1
             }
           ]
@@ -114,10 +114,6 @@
               "count": 1
             },
             {
-              "xml": "<feature name=\"Idfa\"><param name=\"android-package\" value=\"by.chemerisuk.cordova.advertising.IdfaPlugin\" /></feature>",
-              "count": 1
-            },
-            {
               "xml": "<feature name=\"NativeStorage\"><param name=\"android-package\" value=\"NativeStorage\" /></feature>",
               "count": 1
             },
@@ -126,19 +122,23 @@
               "count": 1
             },
             {
-              "xml": "<feature name=\"InAppBrowser\"><param name=\"android-package\" value=\"org.apache.cordova.inappbrowser.InAppBrowser\" /></feature>",
-              "count": 1
-            },
-            {
-              "xml": "<feature name=\"InAppBillingPlugin\"><param name=\"android-package\" value=\"cc.fovea.PurchasePlugin\" /></feature>",
-              "count": 1
-            },
-            {
               "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
               "count": 1
             },
             {
               "xml": "<feature name=\"Geolocation\"><param name=\"android-package\" value=\"org.apache.cordova.geolocation.Geolocation\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"Idfa\"><param name=\"android-package\" value=\"by.chemerisuk.cordova.advertising.IdfaPlugin\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"InAppBrowser\"><param name=\"android-package\" value=\"org.apache.cordova.inappbrowser.InAppBrowser\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"InAppBillingPlugin\"><param name=\"android-package\" value=\"cc.fovea.PurchasePlugin\" /></feature>",
               "count": 1
             }
           ]
@@ -155,13 +155,6 @@
     "cordova-plugin-dialogs": {
       "PACKAGE_NAME": "com.bridgeport.free"
     },
-    "cordova-support-android-plugin": {
-      "PACKAGE_NAME": "com.bridgeport.free"
-    },
-    "cordova-plugin-idfa": {
-      "ANDROID_PLAY_ADID_VERSION": "'16.+'",
-      "PACKAGE_NAME": "com.bridgeport.free"
-    },
     "cordova-plugin-nativestorage": {
       "PACKAGE_NAME": "com.bridgeport.free"
     },
@@ -169,17 +162,24 @@
       "PLAY_REVIEW_VERSION": "2.+",
       "PACKAGE_NAME": "com.bridgeport.free"
     },
-    "cordova-plugin-inappbrowser": {
-      "PACKAGE_NAME": "com.bridgeport.free"
-    },
-    "cordova-plugin-purchase": {
-      "PACKAGE_NAME": "com.bridgeport.free"
-    },
     "cordova-plugin-device": {
       "PACKAGE_NAME": "com.bridgeport.free"
     },
     "cordova-plugin-geolocation": {
       "GPS_REQUIRED": "true",
+      "PACKAGE_NAME": "com.bridgeport.free"
+    },
+    "cordova-support-android-plugin": {
+      "PACKAGE_NAME": "com.bridgeport.free"
+    },
+    "cordova-plugin-idfa": {
+      "ANDROID_PLAY_ADID_VERSION": "'16.+'",
+      "PACKAGE_NAME": "com.bridgeport.free"
+    },
+    "cordova-plugin-inappbrowser": {
+      "PACKAGE_NAME": "com.bridgeport.free"
+    },
+    "cordova-plugin-purchase": {
       "PACKAGE_NAME": "com.bridgeport.free"
     },
     "cordova-plugin-wkwebview-file-xhr": {
@@ -210,14 +210,6 @@
       "pluginId": "cordova-plugin-dialogs",
       "merges": [
         "navigator.notification"
-      ]
-    },
-    {
-      "id": "cordova-plugin-idfa.Idfa",
-      "file": "plugins/cordova-plugin-idfa/www/Idfa.js",
-      "pluginId": "cordova-plugin-idfa",
-      "merges": [
-        "cordova.plugins.idfa"
       ]
     },
     {
@@ -260,23 +252,6 @@
       "runs": true
     },
     {
-      "id": "cordova-plugin-inappbrowser.inappbrowser",
-      "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
-      "pluginId": "cordova-plugin-inappbrowser",
-      "clobbers": [
-        "cordova.InAppBrowser.open"
-      ]
-    },
-    {
-      "id": "cordova-plugin-purchase.CdvPurchase",
-      "file": "plugins/cordova-plugin-purchase/www/store.js",
-      "pluginId": "cordova-plugin-purchase",
-      "clobbers": [
-        "store",
-        "CdvPurchase"
-      ]
-    },
-    {
       "id": "cordova-plugin-device.device",
       "file": "plugins/cordova-plugin-device/www/device.js",
       "pluginId": "cordova-plugin-device",
@@ -297,19 +272,44 @@
       "file": "plugins/cordova-plugin-geolocation/www/PositionError.js",
       "pluginId": "cordova-plugin-geolocation",
       "runs": true
+    },
+    {
+      "id": "cordova-plugin-idfa.Idfa",
+      "file": "plugins/cordova-plugin-idfa/www/Idfa.js",
+      "pluginId": "cordova-plugin-idfa",
+      "merges": [
+        "cordova.plugins.idfa"
+      ]
+    },
+    {
+      "id": "cordova-plugin-inappbrowser.inappbrowser",
+      "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
+      "pluginId": "cordova-plugin-inappbrowser",
+      "clobbers": [
+        "cordova.InAppBrowser.open"
+      ]
+    },
+    {
+      "id": "cordova-plugin-purchase.CdvPurchase",
+      "file": "plugins/cordova-plugin-purchase/www/store.js",
+      "pluginId": "cordova-plugin-purchase",
+      "clobbers": [
+        "store",
+        "CdvPurchase"
+      ]
     }
   ],
   "plugin_metadata": {
     "admob-plus-cordova": "2.0.0-alpha.15",
     "cordova-plugin-dialogs": "2.0.2",
-    "cordova-support-android-plugin": "2.0.4",
-    "cordova-plugin-idfa": "3.0.0",
     "cordova-plugin-nativestorage": "2.3.2",
     "cordova-plugin-apprate": "1.8.0",
-    "cordova-plugin-inappbrowser": "6.0.0",
-    "cordova-plugin-purchase": "13.11.1",
     "cordova-plugin-device": "3.0.0",
     "cordova-plugin-geolocation": "5.0.0",
+    "cordova-support-android-plugin": "2.0.4",
+    "cordova-plugin-idfa": "3.0.0",
+    "cordova-plugin-inappbrowser": "6.0.0",
+    "cordova-plugin-purchase": "13.11.1",
     "cordova-plugin-wkwebview-file-xhr": "3.1.1"
   }
 }
