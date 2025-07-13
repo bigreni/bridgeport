@@ -72,15 +72,6 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       ]
     },
     {
-      "id": "cordova-plugin-purchase.CdvPurchase",
-      "file": "plugins/cordova-plugin-purchase/www/store.js",
-      "pluginId": "cordova-plugin-purchase",
-      "clobbers": [
-        "CdvPurchase",
-        "store"
-      ]
-    },
-    {
       "id": "cordova-plugin-device.device",
       "file": "plugins/cordova-plugin-device/www/device.js",
       "pluginId": "cordova-plugin-device",
@@ -143,6 +134,15 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "file": "plugins/cordova-plugin-wkwebview-file-xhr/src/www/ios/whatwg-fetch-2.0.3.js",
       "pluginId": "cordova-plugin-wkwebview-file-xhr",
       "runs": true
+    },
+    {
+      "id": "cordova-plugin-purchase.CdvPurchase",
+      "file": "plugins/cordova-plugin-purchase/www/store.js",
+      "pluginId": "cordova-plugin-purchase",
+      "clobbers": [
+        "CdvPurchase",
+        "store"
+      ]
     }
   ];
   module.exports.metadata = {
@@ -153,9 +153,9 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-nativestorage": "2.3.2",
     "cordova-plugin-apprate": "1.8.0",
     "cordova-plugin-inappbrowser": "6.0.0",
-    "cordova-plugin-purchase": "13.11.1",
     "cordova-plugin-device": "3.0.0",
     "cordova-plugin-geolocation": "5.0.0",
-    "cordova-plugin-wkwebview-file-xhr": "3.1.1"
+    "cordova-plugin-wkwebview-file-xhr": "3.1.1",
+    "cordova-plugin-purchase": "13.12.1"
   };
 });
